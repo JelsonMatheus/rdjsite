@@ -1,0 +1,122 @@
+{% extends 'core_site/base/base.html' %}
+{% load static %}
+
+{% block css %}
+{{block.super }}
+    <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site_forum/css/index.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}RespondeJunto{% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-fluid my-4">
+        <div class="row gx-3 gy-3">
+
+            <!--LEFT COLLUMN-->
+            <div class="col-md-3">
+                <section class="forum-container rdj-shadow">
+                    <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
+                        Foruns
+                    </button>
+                    <div class="collapse" id="collapseForuns">
+                        <div class="list-group">
+                            <a href="#" class="list-group-item active">Programação 1</a>
+                            <a href="#" class="list-group-item">Estrutura de Dados</a>
+                            <a href="#" class="list-group-item">Calulo II</a>
+                            <a href="#" class="list-group-item">Statistica</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--LEFT CENTER-->
+            <div class="col-md-7">
+                <div class="add-post text-center border rdj-shadow">
+                    <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
+                        aria-controls="offcanvasBottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-plus-square" viewBox="0 0 16 16">
+                            <path
+                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+                            <path
+                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+                        </svg>
+                        Criar um novo tópico?
+                    </button>
+                </div>
+
+                <section class="container-topico rdj-shadow p-sm-2">
+                    <h6 class="titulo-forum">Forum: Programação II</h6>
+
+                    <div class="list-topico">
+                        <a href="#" class="topico d-flex">
+                            <div class="flex-shrink-0">
+                                <div class="img-user">J</div>
+                            </div>
+                            <div class="flex-grow-1 ms-2">
+                                <div class="d-flex">
+                                    <h5 class="topico-titulo">Alguma pergunta <span class="badge bg-info">Categoria</span></h5>
+                                </div>
+                                <div class="topico-footer d-flex flex-wrap">
+                                    <span>Autor: Jelson</span>
+                                    <span class="ms-3">Resposta: 2</span>
+                                    <span class="ms-3">4h</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+            </div>
+
+            <!--LEFT RIGHT-->
+            <div class="col-md-2 d-none d-sm-block">
+                <section></section>
+            </div>
+        </div>
+
+        <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"aria-labelledby="offcanvasBottomLabel">
+            <div class="offcanvas-header border">
+                <h5 class="offcanvas-title" id="offcanvasBottomLabel">Criar um novo tópico?</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <form class="form-topico">
+                    <div class="pb-2 d-flex flex-wrap">
+                        <label for="input-titulo"> Titulo: </label>
+                        <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
+                        <select class="form-select flex-fill ms-sm-2">
+                            <option selected>Categorias</option>
+                        </select>
+                    </div>
+
+                    <div class="editor-container"> 
+                        <textarea id="textareaPost" required></textarea>
+                    </div>
+
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'js/simplemde.min.js' %}"></script>
+    
+    <script>
+        const simplemde = new SimpleMDE({ 
+            element: document.getElementById("textareaPost") ,
+            spellChecker: false,
+            hideIcons: ["image"],
+            status: false,
+        });
+        simplemde.value("Use markdown e tags HTML.");
+
+    </script>
+{% endblock %}
