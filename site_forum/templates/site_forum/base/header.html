@@ -1,4 +1,20 @@
 <header class="d-flex">
     <a href="/" class="logo-text">RespondeJunto</a>
-    <a class="btn-entrar">Entrar</a>
+
+    <div class="user-info">
+        {% if user.is_authenticated %}
+        <div class="btn-group">
+            <button type="button" class="logo-user" data-bs-toggle="dropdown" aria-expanded="false">
+                {{ user.username|first|capfirst }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                  <a href="{% url 'forum_logout' %}" class="dropdown-item text-danger">Sair</a>
+                </li>
+            </ul>
+        </div>
+        {% else %}
+        <a class="btn-entrar">Entrar</a>
+        {% endif %}
+    </div>
 </header>

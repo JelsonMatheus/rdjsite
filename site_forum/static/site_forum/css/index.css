@@ -20,7 +20,7 @@ main {
     padding: 0.3rem;
     font-size: 1em;
     text-align: center;
-    background: #1abc9c;
+    background: #5eace0;
     border-radius: 50%;
 }
 
@@ -70,13 +70,14 @@ main {
         color: orangered;
     }
 
-.titulo-forum {
-    padding: 0.5rem 0 1rem 1rem;
-    margin-bottom: 1rem;
-    color: gray;
-    font-weight: bold;
+.forum_info {
+    padding: 0.5rem 0 1.2rem 1rem;
     border-bottom: 1px solid #1abc9c;
 }
+    .titulo-forum {
+        color: gray;
+        font-weight: bold;
+    }
 
 .container-topico {
     min-height: 400px;
@@ -150,9 +151,6 @@ main {
         height: 2.5rem;
         padding-top: 0.2rem;
         font-size: 1.4em;
-        text-align: center;
-        background: #1abc9c;
-        border-radius: 50%;
     }
 
     .topico-titulo {
