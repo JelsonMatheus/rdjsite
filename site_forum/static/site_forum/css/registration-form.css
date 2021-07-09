@@ -1,0 +1,49 @@
+body {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    background: #b1d3eb;
+}
+
+main {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+footer {
+    background: none;
+}
+
+.svg-user {
+    width: 8rem;
+    color: #1abc9c;
+}
+
+.container-login {
+    margin: 0rem 1rem 0rem 1rem;
+    background: white;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    box-shadow: rgba(32, 32, 32, 0.2) 0px 4px 12px;
+}
+
+@media (min-width: 576px) {
+    .container-login {
+        max-width: 25rem;
+        margin: auto;
+        padding: 1rem 3rem 3rem 3rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .svg-user {
+        width: 9rem;
+    }
+
+    .container-login {
+        max-width: 30rem;
+        margin: auto;
+        padding: 1rem 3rem 3rem 3rem;
+    }
+}

@@ -1,0 +1,63 @@
+{% extends 'site_forum/base/base.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link href="{% static 'site_forum/css/registration-form.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-login">
+        <div class="text-center">
+            <h4 class="mb-2">LOGIN</h4>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-user mb-3" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+        </div>
+
+        <form action="{{request.path}}" method="POST"
+            class="row row-cols-lg auto g-3 align-center"> {% csrf_token %}
+            <div class="col-12">
+                <label class="visually-hidden" for="inputUsername">UserName</label>
+                <div class="input-group">
+                    <div class="input-group-text">@</div>
+                    <input type="text" class="form-control" placeholder="Username" name="username" required
+                        id="inputUsername">
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="visually-hidden" for="inputPassword">UserName</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password" required
+                        id="inputPassword">
+                </div>
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </div>
+            <div class="col-12 class text-center">
+                <p>Não tem uma conta?
+                    <a href="">Cadastrar</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+{% block footer %} 
+<footer class="text-center">
+    <small>&copy; Jelson Matheus | Todos os direitos reservados {% now 'Y' %}</small>
+</footer>
+{% endblock %}

@@ -1,7 +1,8 @@
-from django.shortcuts import redirect, get_object_or_404
-from django.contrib.auth import logout
+from django.shortcuts import redirect, get_object_or_404, render
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView
+from django.views.generic.base import View
 
 from .models import Topico, Forum
 
@@ -16,6 +17,25 @@ def logout_view(request):
     logout(request)
     return redirect(request.META.get('HTTP_REFERER','/'))
     
+
+class LoginView(View):
+
+    def get(self, request, *args, **kwargs):
+        template = 'site_forum/registration/login.html'
+        print(args)
+        return render(request, template)
+    
+    def post(self, request, *args, **kwargs):
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect(request.GET.get('next', '/'))
+        else:
+            redirect(request.get_absolute_url())
+       
 
 class TopicoListView(ListView):
 

@@ -19,7 +19,7 @@ class Forum(TimeStampBase):
     slug = models.SlugField(null=True, blank=True, unique=True)
 
     def get_absolute_url(self):
-        return reverse('forum_page', kwargs={'slug':self.slug})
+        return reverse('forum:page', kwargs={'slug':self.slug})
     
     def save(self, *args, **kwargs):
         self.slug =slugify(self.nome)
