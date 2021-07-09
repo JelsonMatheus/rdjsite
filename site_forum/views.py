@@ -14,7 +14,7 @@ def redirect_to_forum_view(request):
 @login_required
 def logout_view(request):
     logout(request)
-    return redirect(request.get_full_path())
+    return redirect(request.META.get('HTTP_REFERER','/'))
     
 
 class TopicoListView(ListView):
