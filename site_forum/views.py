@@ -1,10 +1,12 @@
-from django.shortcuts import redirect, get_object_or_404, render
-from django.contrib.auth import authenticate, login, logout
+from django.http.response import HttpResponseRedirect
+from django.shortcuts import redirect, get_object_or_404
+from django.contrib.auth import authenticate, forms, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from django.views.generic import ListView
-from django.views.generic.base import View
-
+from django.views.generic.edit import FormView
 from .models import Topico, Forum
+from .forms import UserRegisterForm, UserLoginForm
 
 # Create your views here.
 
@@ -18,25 +20,35 @@ def logout_view(request):
     return redirect(request.META.get('HTTP_REFERER','/'))
     
 
-class LoginView(View):
+class LoginView(FormView):
+    template_name = 'site_forum/registration/login.html'
+    form_class = UserLoginForm
 
-    def get(self, request, *args, **kwargs):
-        template = 'site_forum/registration/login.html'
-        print(args)
-        return render(request, template)
+    def form_valid(self, form):
+        login(self.request, form.get_user())
+        return HttpResponseRedirect(self.get_success_url())
     
-    def post(self, request, *args, **kwargs):
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-        
-        if user is not None:
-            login(request, user)
-            return redirect(request.GET.get('next', '/'))
-        else:
-            redirect(request.get_absolute_url())
-       
+    def form_invalid(self, form):
+        messages.error(self.request, form.non_field_errors()[0])
+        return HttpResponseRedirect(self.request.path)
+    
+    def get_success_url(self):
+        return self.request.GET.get('next', '/')
 
+class RegisterView(FormView):
+    template_name = 'site_forum/registration/register.html'
+    success_url = '/'
+    form_class = UserRegisterForm
+    initial = {'username':''}
+
+    def form_valid(self, form):
+        login(request=self.request, user=form.save())
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Erro ao registrar o usuário!")
+        return super().form_invalid(form)
+        
 class TopicoListView(ListView):
 
     queryset = Topico.objects
