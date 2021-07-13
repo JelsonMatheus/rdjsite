@@ -1,15 +1,15 @@
+html {height: 100vh;}
 body {
     display: flex;
-    height: 100vh;
+    min-height: 100%;
+    padding: 1rem 0rem 1rem 0rem;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
     background: #b1d3eb;
 }
 
 main {
-    display: flex;
     margin-bottom: 2rem;
+    margin: auto;
 }
 
 footer {
@@ -19,6 +19,11 @@ footer {
 .svg-user {
     width: 8rem;
     color: #1abc9c;
+}
+
+.erro {
+    color: red;
+    font-size: 0.8em;
 }
 
 .container-login {

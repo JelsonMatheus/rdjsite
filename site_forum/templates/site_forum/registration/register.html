@@ -1,0 +1,115 @@
+{% extends 'site_forum/base/base.html' %}
+{% load static %}
+
+{% block title %}Register{% endblock %}
+
+{% block css %}
+{{ block.super }}
+<link href="{% static 'site_forum/css/registration-form.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block header %} {% endblock %}
+
+{% block content %}
+<main>
+    <div class="container-login">
+        
+        <div class="text-center"> {% include 'site_forum/base/messages.html' %} </div>
+
+        <div class="text-center">
+            <h4 class="mb-2">SIGN  UP</h4>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="svg-user mb-3" viewBox="0 0 16 16">
+                <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+        </div>
+
+        <form action="{{request.path}}" method="POST"
+            class="row row-cols-lg auto g-3 align-center"> {% csrf_token %}
+            
+            <div class="col-12">
+                <label class="visually-hidden" for="inputUsername">UserName</label>
+                <div class="input-group">
+                    <div class="input-group-text">@</div>
+                    <input type="text" class="form-control" placeholder="Username" name="username" required
+                        value="{{form.username.value}}" id="inputUsername">
+                    <div class="erro w-100 px-3"> {{form.username.errors.0}}</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="visually-hidden" for="inputPassword">password</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Password" name="password" onkeyup="check()"
+                        required id="inputPassword">
+                    <div class="erro w-100 px-3"> {{form.password.errors.0}}</div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="visually-hidden" for="inputConfirmPassword">confirm password</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lock-fill" viewBox="0 0 16 16">
+                            <path d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+                        </svg>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Confirm password" name="password2" onkeyup="check()" 
+                        required id="inputConfirmPassword">
+                    <div class="erro w-100 px-3"> 
+                        <span id="msg" class="w-100" style="display:none;">senhas diferentes...</span>
+                        {{form.password2.errors.0}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button id="submit" type="submit" class="btn btn-success w-100">Cadastrar</button>
+            </div>
+
+            <div class="col-12 class text-center">
+                <p>Já tem uma conta?
+                    <a href="{% url 'forum:login' %}">Entrar</a>
+                </p>
+            </div>
+        </form>
+    </div>
+</main>
+{% endblock %}
+
+{% block footer %} 
+<footer class="text-center">
+    <small>&copy; Jelson Matheus | Todos os direitos reservados {% now 'Y' %}</small>
+</footer>
+{% endblock %}
+
+{% block javascript %} 
+{{block.super}}
+
+<script>
+    function check() {
+        const password = document.getElementById("inputPassword");
+        const confirmPassword = document.getElementById("inputConfirmPassword");
+        const submit = document.getElementById("submit");;
+        const msg = document.getElementById("msg");
+
+        if(password.value === confirmPassword.value ||
+            (password.value  === "" || confirmPassword.value == "")) {
+
+            submit.disabled = false;
+            msg.style.display = "none";
+
+        } else {
+            submit.disabled = true;
+            msg.style.display = "block";
+            msg.innerText = "senhas diferentes";
+        }
+    }
+</script>
+
+{% endblock %}
