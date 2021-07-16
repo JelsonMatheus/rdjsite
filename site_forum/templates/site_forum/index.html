@@ -64,7 +64,7 @@
                                     {{ topico.user.username|first|capfirst }} 
                                 </div>
                             </div>
-                            <div class="flex-grow-1 ms-2">
+                            <div class="flex-grow-1 ms-2 ms-sm-3">
                                 <div class="d-flex">
                                     <h5 class="topico-titulo">{{ topico }}
                                         {% if topico.categoria is not None %}
@@ -99,7 +99,8 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="form-topico">
+            <form class="form-topico" action="{% url 'forum:create_topico' forum_atual.slug %}" method="POST">
+                {% csrf_token %}
                 <div class="pb-2 d-flex flex-wrap">
                     <label for="input-titulo"> Titulo: </label>
                     <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
@@ -109,11 +110,11 @@
                 </div>
 
                 <div class="editor-container"> 
-                    <textarea id="textareaPost" required></textarea>
+                    <textarea id="textareaPost" name="texto" required></textarea>
                 </div>
 
                 <div class="mt-2">
-                    <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
+                    <button type="submit" class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
                 </div>
             </form>
         </div>
@@ -131,6 +132,7 @@
             spellChecker: false,
             hideIcons: ["image"],
             status: false,
+            forceSync: true,
         });
         simplemde.value("Use markdown e tags HTML.");
 

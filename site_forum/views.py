@@ -1,12 +1,15 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
-from django.contrib.auth import login, logout
+from django.contrib.auth import forms, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls.base import reverse
 from django.views.generic import ListView, DetailView
+from django.views.generic.base import View
+from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 from .models import Topico, Forum
-from .forms import UserRegisterForm, UserLoginForm
+from .forms import UserRegisterForm, UserLoginForm, TopicoCreateForm
 
 # Create your views here.
 
@@ -63,6 +66,7 @@ class TopicoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = TopicoCreateForm
         context['foruns'] = Forum.objects.all()
         context['forum_atual'] = self.forum
         return context
@@ -71,3 +75,16 @@ class TopicoDetailView(DetailView):
     model = Topico
     template_name = 'site_forum/topico.html'
     pk_url_kwarg = 'topico_id'
+
+class TopicoCreateView(View):
+
+    def post(self, request, *args, **kwargs):
+        form = TopicoCreateForm(request.POST)
+        user = request.user
+        forum = Forum.objects.get(slug=kwargs['slug'])
+
+        if form.is_valid():
+            topico = form.save(user, forum)
+            return redirect(topico)
+        else:
+            return redirect(forum)

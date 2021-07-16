@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
 
+from site_forum.models import Topico
 
 class UserLoginForm(forms.Form):
     username = UsernameField(widget=forms.TextInput)
@@ -35,7 +36,6 @@ class UserLoginForm(forms.Form):
         return self._user
             
 
-
 class UserRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput, initial='')
     password2 = forms.CharField(widget=forms.PasswordInput, initial='')
@@ -61,3 +61,17 @@ class UserRegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class TopicoCreateForm(forms.ModelForm):
+    class Meta:
+        model = Topico
+        fields = ['titulo', 'texto', 'categoria']
+    
+    def save(self, user, forum, commit=True):
+        topico = super().save(commit=False)
+        topico.user = user
+        topico.forum = forum
+        if commit:
+            topico.save()
+        return topico
