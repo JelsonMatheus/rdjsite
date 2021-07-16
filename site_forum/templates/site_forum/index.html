@@ -16,7 +16,7 @@
 
             <!--LEFT COLLUMN-->
             <div class="col-md-3">
-                <section class="forum-container rdj-shadow">
+                <section class="forum-container fu-shadow">
                     <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
                         Foruns
                     </button>
@@ -24,9 +24,9 @@
                         <div class="list-group">
                         {% for forum in  foruns %}
                             {% if view.kwargs.slug == forum.slug %}
-                            <a href="{{ forum.get_absolute_url}}" class="list-group-item active">{{ forum }}</a>
+                            <a href="{{ forum.get_absolute_url}}" class="list-group-item fu-hover active">{{ forum }}</a>
                             {% else %}
-                            <a href="{{ forum.get_absolute_url}}" class="list-group-item">{{ forum }}</a>
+                            <a href="{{ forum.get_absolute_url}}" class="list-group-item fu-hover">{{ forum }}</a>
                             {% endif %}
                         {% endfor %}
                         </div>
@@ -36,8 +36,8 @@
 
             <!--LEFT CENTER-->
             <div class="col-md-7">
-                <div class="add-post text-center border rdj-shadow">
-                    <button class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
+                <div class="add-post text-center border fu-shadow">
+                    <button class="btn fu-secondary-border fu-radius-30 fu-hover" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
                         aria-controls="offcanvasBottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -50,17 +50,17 @@
                     </button>
                 </div>
 
-                <section class="container-topico rdj-shadow p-sm-2">
-                    <div class="forum_info">
+                <section class="container-topico fu-shadow p-sm-2">
+                    <div class="forum_info fu-secondary-border pb-4 fu-bd-b">
                         <h6 class="titulo-forum">Forum: {{forum_atual}}</h6>
                         <small class="text-muted">{{forum_atual.descricao}}</small>
                     </div>
 
                     <div class="list-topico">
                         {% for topico in topicos %}
-                        <a href="{% url 'forum:topico' forum_atual.slug topico.pk %}" class="topico d-flex">
+                        <a href="{{ topico.get_absolute_url }}" class="topico d-flex fu-secondary-border fu-bd-b">
                             <div class="flex-shrink-0">
-                                <div class="img-user">
+                                <div class="fu-user d-flex justify-content-center align-items-center">
                                     {{ topico.user.username|first|capfirst }} 
                                 </div>
                             </div>
@@ -91,12 +91,12 @@
         </div>
     </div>
 
-    <!--======= MODAIS ======-->>
+    <!--======= MODAIS ======-->
 
-    <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"  aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
             <h5 class="offcanvas-title" id="offcanvasBottomLabel">Criar um novo tópico?</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"aria-label="Close"></button>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
             <form class="form-topico">
@@ -105,16 +105,15 @@
                     <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
                     <select class="form-select flex-fill ms-sm-2">
                         <option selected>Categorias</option>
-                        </select>
-                    </div>
+                    </select>
+                </div>
 
-                    <div class="editor-container"> 
-                        <textarea id="textareaPost" required></textarea>
-                    </div>
+                <div class="editor-container"> 
+                    <textarea id="textareaPost" required></textarea>
+                </div>
 
-                    <div class="mt-2">
-                        <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
-                    </div>
+                <div class="mt-2">
+                    <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
                 </div>
             </form>
         </div>

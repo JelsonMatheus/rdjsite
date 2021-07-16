@@ -1,0 +1,152 @@
+{% extends 'site_forum/base/base.html' %}
+{% load static %}
+
+{% block css %}
+{{block.super }}
+    <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet">
+    <link href="{% static 'site_forum/css/topico.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block title %}RespondeJunto{% endblock %}
+
+{% block content %}
+
+<main>
+    <div class="container-fluid my-4">
+
+        <section class="jumbotron container mb-4 rounded-3">
+            <div class="container-fluid py-5 text-center">
+                <h1 class="fs-4 fw-bold">{% lorem 3 w%}</h1>
+                <p class="fs-6">{% lorem 10 w%}</p>
+            </div>
+        </section>
+        
+        <div class="row gx-sm-3 gy-3">
+
+            <!--LEFT COLLUMN-->
+            <div class="col-md-3">
+                <section class="forum-container rdj-shadow">
+                    <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
+                        Foruns
+                    </button>
+                    <div class="collapse" id="collapseForuns">
+                        <div class="list-group">
+                        {% for forum in  foruns %}
+                            {% if view.kwargs.slug == forum.slug %}
+                            <a href="{{ forum.get_absolute_url}}" class="list-group-item active">{{ forum }}</a>
+                            {% else %}
+                            <a href="{{ forum.get_absolute_url}}" class="list-group-item">{{ forum }}</a>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!--CENTER COLLUMN -->
+            <div class="col-md-7">
+                <div class="container shadow-sm bg">
+                    <div class="topico-container">
+                        <div class="topico-header ">
+                            <h5 class="topico-title">{% lorem 8 w %}</h5>
+                        </div>
+
+                        <div class="topico-body mt-2">
+                            <div class="d-flex mb-2">
+                                <div class="fu-user d-flex justify-content-center align-items-center">
+                                    {{ topico.user.username|first|capfirst }} 
+                                </div>
+                                <span class="ms-auto fu-data"> 1 dia e 6 min</span>
+                            </div>
+                            <div>
+                                {% lorem 2 p%}
+                            </div>
+                        </div>
+
+                        <div class="topico-footer d-flex">
+                            <div class="text-muted">
+                                <span>Respostas: 4</span>
+                            </div>
+                            <button class="btn btn-sm btn-primary ms-auto">Responder</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="resposta-list">
+                        <div class="resposta-container">
+                            <div class="resposta-header d-flex">
+                                <span class="date"></span>
+                            </div>
+
+                            <div class="resposta-body mt-2">
+                                <div class="d-flex mb-2">
+                                    <div class="rounded-circle" style="width:2rem; background:#5eace0;">J</div>
+                                    <span class="ms-auto fu-data"> 1 dia e 6 min</span>
+                                </div>
+                                <div>
+                                    {% lorem 2 p%}
+                                </div>
+                            </div>
+
+                            <div class="resposta-footer d-flex">
+                                <button class="btn btn-sm btn-primary ms-auto">Responder</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <br><br>
+                    
+                </div>
+            </div>
+
+            <!--RIGHT COLLUMN-->
+            <div class="col-md-2 d-none d-sm-block">
+            </div>
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header border">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Criar um novo tópico?</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form class="form-topico">
+                <div class="pb-2 d-flex flex-wrap">
+                    <label for="input-titulo"> Titulo: </label>
+                    <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
+                    <select class="form-select flex-fill ms-sm-2">
+                        <option selected>Categorias</option>
+                        </select>
+                    </div>
+
+                    <div class="editor-container"> 
+                        <textarea id="textareaPost" required></textarea>
+                    </div>
+
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block javascript %}
+    {{ block.super }}
+    <script src="{% static 'js/simplemde.min.js' %}"></script>
+    
+    <script>
+        const simplemde = new SimpleMDE({ 
+            element: document.getElementById("textareaPost") ,
+            spellChecker: false,
+            hideIcons: ["image"],
+            status: false,
+        });
+        simplemde.value("Use markdown e tags HTML.");
+
+    </script>
+{% endblock %}

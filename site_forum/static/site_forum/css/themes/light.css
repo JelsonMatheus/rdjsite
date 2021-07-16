@@ -1,0 +1,62 @@
+
+/********** Variáveis ***************/
+:root {
+    --color-default: white;
+    --color-primary: #3498db;
+    --color-secondary: #1abc9c;
+    --color-error: red;
+
+    --c-main-text: black;
+    --c-secondary-text: white;
+    --c-text-mutted: gray;
+
+    --bg-main: #fbfcfc;
+    --bg-header: var(--color-primary);
+    --bg-footer: var(--color-secondary);
+    --bg-user-icon: #5eace0;
+    --bg-primary-button: #85c1e9;
+    --bg-icon: red;
+    --bg-select-topico: rgb(206, 237, 241);
+    --bg-jumbotron-topico: #03DAC6;
+}
+
+/*********** Styles gerais **********/
+main {
+    background: var(--bg-main);
+    color: var(--c-main-text);
+}
+
+/*********** utilitários ************/
+.fu-shadow { box-shadow: rgba(32, 32, 32, 0.2) 0px 4px 12px;}
+
+.fu-secondary-border{
+    border: 1px solid var(--color-secondary);
+}
+.fu-bd-b {
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+.fu-radius-30{
+    border-radius: 30px;
+}
+
+.fu-hover:hover {
+    color: var(--c-secondary-text);
+    background: var(--color-secondary);
+}
+
+.fu-user {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.2em;
+    background: var(--bg-user-icon);
+    border: 1px solid gray;
+    border-radius: 50%;
+}
+
+.fu-data {
+    font-size: 0.8em;
+    color: gray;
+}

@@ -1,21 +1,24 @@
+@import url('themes/light.css');
+
 header {
     padding: 0.8rem 1rem 0.5rem 1rem;
-    background: #1abc9c;
+    background: var(--bg-header);
 }
 
 footer {
     padding: 1rem;
-    background: #1abc9c;
+    background: var(--bg-header);
 }
 
 .logo-text {
-    color: white;
+    color: var(--c-secondary-text);
     font-size: 1.2em;
     font-weight: bold;
     text-decoration: none;
 }
     .logo-text:hover {
-        color: white;
+        color: var(--c-secondary-text);
+        font-size: 1.3em;
         cursor: pointer;
     }
 
@@ -23,24 +26,16 @@ footer {
     margin-left: auto;
 }
 
-    .user-info .logo-user {
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.2em;
-        background: #5eace0;
-        border: 1px solid gray;
-        border-radius: 50%;
-    }
-
 .btn-entrar {
     padding: 0.4rem 0.5rem 0.4rem 0.5rem;
-    background: #8ccaf3;
-    color: black;
+    background: var(--bg-primary-button);
+    color: var(--c-main-text);
     text-decoration: none;
     border-radius: 2px;
 }
     .btn-entrar:hover {
-        color: black;
-        background: #5eace0;
+        color: var(--c-secondary-text);
+        filter:drop-shadow(2px 2px 15px var(--bg-primary-button));
+        transform: scale(1.2);
         cursor: pointer;
     }

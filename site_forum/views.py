@@ -1,9 +1,9 @@
 from django.http.response import HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
-from django.contrib.auth import authenticate, forms, login, logout
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormView
 from .models import Topico, Forum
 from .forms import UserRegisterForm, UserLoginForm
@@ -66,3 +66,8 @@ class TopicoListView(ListView):
         context['foruns'] = Forum.objects.all()
         context['forum_atual'] = self.forum
         return context
+
+class TopicoDetailView(DetailView):
+    model = Topico
+    template_name = 'site_forum/topico.html'
+    pk_url_kwarg = 'topico_id'

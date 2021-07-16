@@ -1,10 +1,10 @@
+@import url('themes/light.css');
 
 body {
     width: 100%;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    background: rgb(252, 251, 251);
 }
 
 main {
@@ -12,40 +12,24 @@ main {
     width: 100%;
 }
 
-.rdj-shadow { box-shadow: rgba(32, 32, 32, 0.2) 0px 4px 12px;}
-
-.img-user {
-    width: 2rem;
-    height: 2rem;
-    padding: 0.3rem;
-    font-size: 1em;
-    text-align: center;
-    background: #5eace0;
-    border-radius: 50%;
-}
-
 .forum-container {
-    background: white;
+    background: var(--color-default);
 }
 .forum-container .list-group{
     border-radius: 0px;
-}
-.forum-container .list-group-item:hover {
-    color: white;
-    background: #1abc9c;
 }
 
 .btn-collapsible {
     width: 100%;
     padding: 0.5rem;
-    color: white;
+    color: var(--c-secondary-text);
     font-weight: bold;
-    background: #1abc9c;
+    background: var(--color-secondary);
     border: none;
 }
     .btn-collapsible::after{
         content: '\002B';
-        color: orangered;
+        color: var(--bg-icon);
         font-size: 1.2em;
         font-weight: bold;
         float: right;
@@ -55,46 +39,39 @@ main {
 .add-post {
     width: 100%;
     padding: 1rem;
-    background: white;
+    background: var(--color-default);
 }
     .add-post .btn {
         width: 100%;
-        border: 1px solid #1abc9c;
-        border-radius: 30px;
     }
-    .add-post .btn:hover {
-        background: rgb(77, 194, 194);
-        border: 1px solid #1abc9c;
-    }
+
     .add-post .btn svg {
-        color: orangered;
+        color: var(--bg-icon);
     }
 
 .forum_info {
     padding: 0.5rem 0 1.2rem 1rem;
-    border-bottom: 1px solid #1abc9c;
 }
     .titulo-forum {
-        color: gray;
+        color: var(--c-text-mutted);
         font-weight: bold;
     }
 
 .container-topico {
     min-height: 400px;
     margin-top: 1rem;
-    background: white;
+    background: var(--color-default);
 }
 
 .topico {
     display: block;
-    padding: 0.5rem 0.5rem 1rem 0.5rem;
-    color: black;
+    padding: 0.5rem 0.6rem 1rem 0.6rem;
+    color: var(--c-main-text);
     text-decoration: none;
-    border-bottom: 1px solid #1abc9c;
 }
     .topico:hover {
-        color: black;
-        background: rgb(206, 237, 241);
+        color: var(--c-main-text);
+        background: var(--bg-select-topico);
     }
     .topico .badge {
         padding: 0.2rem;
@@ -102,7 +79,8 @@ main {
     }
 
 .topico-titulo {
-    font-size: 1em;
+    font-size: 0.9em;
+    font-weight: bold;
 }
 
 .topico-footer {
@@ -121,7 +99,7 @@ main {
     width: 18rem;
 }
 .form-topico .btn {
-    background: orangered;
+    background: var(--bg-icon);
 }
 
 
@@ -144,13 +122,6 @@ main {
 
     .btn-collapsible::after {
         content: none;
-    }
-
-    .img-user {
-        width: 2.5rem;
-        height: 2.5rem;
-        padding-top: 0.2rem;
-        font-size: 1.4em;
     }
 
     .topico-titulo {

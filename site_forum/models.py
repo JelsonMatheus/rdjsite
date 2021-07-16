@@ -42,6 +42,9 @@ class Topico(TimeStampBase):
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=SET_NULL, null=True, blank=True)
 
+    def get_absolute_url(self):
+        return reverse('forum:topico', kwargs={'slug':self.forum.slug, 'topico_id':self.pk})
+    
     def __str__(self):
         return self.titulo
 

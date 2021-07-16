@@ -1,3 +1,5 @@
+@import url('themes/light.css');
+
 html {height: 100vh;}
 body {
     display: flex;
@@ -10,6 +12,7 @@ body {
 main {
     margin-bottom: 2rem;
     margin: auto;
+    background: none;
 }
 
 footer {
@@ -18,19 +21,18 @@ footer {
 
 .svg-user {
     width: 8rem;
-    color: #1abc9c;
+    color: var(--color-secondary);
 }
 
 .erro {
-    color: red;
+    color: var(--color-error);
     font-size: 0.8em;
 }
 
 .container-login {
     margin: 0rem 1rem 0rem 1rem;
-    background: white;
-    padding: 1rem 0.5rem 0.5rem 0.5rem;
-    box-shadow: rgba(32, 32, 32, 0.2) 0px 4px 12px;
+    background: var(--color-default);
+    padding: 1rem 0.5rem 1rem 0.5rem;
 }
 
 @media (min-width: 576px) {
