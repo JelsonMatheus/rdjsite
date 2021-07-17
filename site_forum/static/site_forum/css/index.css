@@ -58,8 +58,10 @@ main {
     }
 
 .container-topico {
+    display: flex;
     min-height: 400px;
     margin-top: 1rem;
+    flex-direction: column;
     background: var(--color-default);
 }
 
@@ -79,7 +81,7 @@ main {
     }
 
 .topico-titulo {
-    font-size: 0.9em;
+    font-size: 0.8em;
     font-weight: bold;
 }
 
@@ -125,7 +127,7 @@ main {
     }
 
     .topico-titulo {
-        font-size: 1.2em;
+        font-size: 1em;
     }
     .topico .badge {
         padding: 0.3rem;

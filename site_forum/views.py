@@ -3,10 +3,8 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.urls.base import reverse
 from django.views.generic import ListView
 from django.views.generic.base import View
-from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import FormView
 from .models import Resposta, Topico, Forum
 from .forms import UserRegisterForm, UserLoginForm, TopicoCreateForm
@@ -57,7 +55,7 @@ class TopicoListView(ListView):
     queryset = Topico.objects
     context_object_name = 'topicos'
     template_name = 'site_forum/index.html'
-    paginate_by = 10
+    paginate_by = 15
     ordering = ['updated_at']
 
     def get_queryset(self):
@@ -89,7 +87,8 @@ class RepostaListView(ListView):
     queryset = Resposta.objects.filter(deleted_at__isnull=True)
     get_context_data = 'respostas'
     template_name = 'site_forum/topico.html'
-    paginate_by = 2
+    paginate_by = 15
+    ordering = ['created_at']
 
     def get_queryset(self):
         self.topico = get_object_or_404(Topico, pk=self.kwargs['topico_id'])

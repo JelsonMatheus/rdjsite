@@ -1,5 +1,5 @@
 {% extends 'site_forum/base/base.html' %}
-{% load static %}
+{% load static %} {% load forum_tags %}
 
 {% block css %}
 {{block.super }}
@@ -50,7 +50,7 @@
                     </button>
                 </div>
 
-                <section class="container-topico fu-shadow p-sm-2">
+                <section class="container-topico fu-shadow p-sm-2 pb-4">
                     <div class="forum_info fu-secondary-border pb-4 fu-bd-b">
                         <h6 class="titulo-forum">Forum: {{forum_atual}}</h6>
                         <small class="text-muted">{{forum_atual.descricao}}</small>
@@ -81,6 +81,23 @@
                         </a>
                         {% endfor %}
                     </div>
+
+                    <nav aria-label="Page navigation">{% if page_obj.paginator.count > 0 %}
+                        <ul class="pagination justify-content-center mt-5">
+                            {% if page_obj.has_previous %}
+                            <li class="page-item"> <a class="page-link" href="?page={{page_obj.previous_page_number}}">Anterior</a></li>{%else%}
+                            <li class="page-item disabled"> <a class="page-link" href="">Anterior</a></li>{% endif %}
+                
+                            {% for p in page_obj|rangepage:5%}
+                            <li class="page-item {%if p == page_obj.number %}active{% endif %}">
+                                <a class="page-link" href="?page={{p}}">{{p}}</a>
+                            </li> 
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                            <li class="page-item"> <a class="page-link" href="?page={{page_obj.next_page_number}}">Próximo</a></li>{%else%}
+                            <li class="page-item disabled"> <a class="page-link" href="">Próximo</a></li>{% endif %}
+                        </ul>{% endif %}
+                    </nav>
                 </section>
             </div>
 
