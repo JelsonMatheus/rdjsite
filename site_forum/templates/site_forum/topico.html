@@ -15,9 +15,9 @@
     <div class="container-fluid my-4">
 
         <section class="jumbotron container mb-4 rounded-3">
-            <div class="container-fluid py-5 text-center">
-                <h1 class="fs-4 fw-bold">{% lorem 3 w%}</h1>
-                <p class="fs-6">{% lorem 10 w%}</p>
+            <div class="container-fluid py-4 text-center">
+                <h1 class="fs-4 fw-bold">{{ forum_atual }}</h1>
+                <p class="fs-6">{{ forum_atual.descricao }}</p>
             </div>
         </section>
         
@@ -48,7 +48,7 @@
                 <div class="container shadow-sm bg">
                     <div class="topico-container">
                         <div class="topico-header ">
-                            <h5 class="topico-title">{% lorem 8 w %}</h5>
+                            <h5 class="topico-title">{{topico.titulo}}</h5>
                         </div>
 
                         <div class="topico-body mt-2">
@@ -56,16 +56,16 @@
                                 <div class="fu-user d-flex justify-content-center align-items-center">
                                     {{ topico.user.username|first|capfirst }} 
                                 </div>
-                                <span class="ms-auto fu-data"> 1 dia e 6 min</span>
+                                <span class="ms-auto fu-data">{{topico.updated_at|timesince}}</span>
                             </div>
                             <div>
-                                {% lorem 2 p%}
+                                {{topico.texto}}
                             </div>
                         </div>
 
-                        <div class="topico-footer d-flex">
+                        <div class="topico-footer mt-2 d-flex">
                             <div class="text-muted">
-                                <span>Respostas: 4</span>
+                                <span>Respostas: {{topico.resposta_set.count}}</span>
                             </div>
                             <button class="btn btn-sm btn-primary ms-auto">Responder</button>
                         </div>
@@ -74,18 +74,22 @@
                     <hr>
 
                     <div class="resposta-list">
+                        {% for resposta in respostas %}
                         <div class="resposta-container">
                             <div class="resposta-header d-flex">
-                                <span class="date"></span>
+
+                                <span>replica: {{resposta.parent.user.username|default:""}</span>
                             </div>
 
                             <div class="resposta-body mt-2">
                                 <div class="d-flex mb-2">
-                                    <div class="rounded-circle" style="width:2rem; background:#5eace0;">J</div>
-                                    <span class="ms-auto fu-data"> 1 dia e 6 min</span>
+                                    <div class="fu-user d-flex justify-content-center align-items-center">
+                                        {{ resposta.user.username|first|capfirst }} 
+                                    </div>
+                                    <span class="ms-auto fu-data">{{resposta.updated_at|timesince}}</span>
                                 </div>
                                 <div>
-                                    {% lorem 2 p%}
+                                    {{ resposta.texto }}
                                 </div>
                             </div>
 
@@ -93,6 +97,7 @@
                                 <button class="btn btn-sm btn-primary ms-auto">Responder</button>
                             </div>
                         </div>
+                        {% endfor %}
                     </div>
 
                     <br><br>
