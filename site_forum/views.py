@@ -7,7 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from .models import Resposta, Topico, Forum
-from .forms import UserRegisterForm, UserLoginForm, TopicoCreateForm
+from .forms import RespostaCreateForm, UserRegisterForm, UserLoginForm, TopicoCreateForm
 
 # Create your views here.
 
@@ -85,7 +85,7 @@ class TopicoCreateView(View):
 
 class RepostaListView(ListView):
     queryset = Resposta.objects.filter(deleted_at__isnull=True)
-    get_context_data = 'respostas'
+    context_object_name = 'respostas'
     template_name = 'site_forum/topico.html'
     paginate_by = 15
     ordering = ['created_at']
@@ -100,3 +100,16 @@ class RepostaListView(ListView):
         context['foruns'] = Forum.objects.all()
         context['topico'] = self.topico
         return context
+
+class RespostaCreateView(View):
+    def post(self, request, *args, **kwargs):
+        form = RespostaCreateForm(request.POST)
+        user = request.user
+        topico = Topico.objects.get(pk=kwargs['topico_id'])
+
+        if form.is_valid():
+            resposta = form.save(user)
+
+        print(form.errors)
+
+        return redirect(topico)

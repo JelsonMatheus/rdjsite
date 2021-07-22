@@ -56,9 +56,18 @@ main {
 }
 
 .resposta-container {
-    padding: 3rem 0rem 1rem 0rem;
+    padding: 2rem 0rem 1rem 0rem;
     border-bottom: 1px solid gray;
 }
+
+.offcanvas-post {
+    height: 95%;
+}
+    .offcanvas-post .offcanvas-title,
+    .offcanvas-post .btn-close {
+        font-size: 1rem;
+    }
+    
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
@@ -76,6 +85,11 @@ main {
     }
 
     .resposta-container {
-        padding: 3rem 1rem 1rem 1rem;
+        padding: 2rem 1rem 1rem 1rem;
+    }
+    .offcanvas-post {
+        width: 80%;
+        height: 95%;
+        margin: auto;
     }
 }

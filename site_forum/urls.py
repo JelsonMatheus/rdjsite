@@ -13,4 +13,5 @@ urlpatterns = [
     path('foruns/<slug:slug>/', views.TopicoListView.as_view(), name='page'),
     path('foruns/<slug:slug>/add/', views.TopicoCreateView.as_view(), name='create_topico'),
     path('foruns/<slug:slug>/<int:topico_id>/', views.RepostaListView.as_view(), name='topico'),
+    path('foruns/<slug:slug>/<int:topico_id>/add/', views.RespostaCreateView.as_view(), name='create_resposta'),
 ]

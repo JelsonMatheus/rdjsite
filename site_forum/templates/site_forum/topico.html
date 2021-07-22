@@ -68,7 +68,10 @@
                             <div class="text-muted">
                                 <span>Respostas: {{topico.resposta_set.count}}</span>
                             </div>
-                            <button class="btn btn-sm btn-primary ms-auto">Responder</button>
+                            <button class="btn btn-sm btn-primary ms-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
+                                aria-controls="offcanvasBottom" onclick="inputResposta.value=''">
+                                Responder
+                            </button>
                         </div>
                     </div>
 
@@ -78,15 +81,17 @@
                         {% for resposta in respostas %}
                         <div class="resposta-container">
                             <div class="resposta-header d-flex">
-
-                                <span>replica: {{resposta.parent.user.username|default:""}</span>
+                                <span class="ms-auto">
+                                    Replica: {% firstof resposta.parent.user.username resposta.topico.user.username %}
+                                </span>
                             </div>
 
-                            <div class="resposta-body mt-2">
+                            <div class="resposta-body mt-1">
                                 <div class="d-flex mb-2">
                                     <div class="fu-user d-flex justify-content-center align-items-center">
                                         {{ resposta.user.username|first|capfirst }} 
                                     </div>
+                                    <span class="ms-2 align-self-center"> {{resposta.user.username }}</span>
                                     <span class="ms-auto fu-data">{{resposta.updated_at|timesince}}</span>
                                 </div>
                                 <div>
@@ -95,7 +100,10 @@
                             </div>
 
                             <div class="resposta-footer d-flex">
-                                <button class="btn btn-sm btn-primary ms-auto">Responder</button>
+                                <button class="btn btn-sm btn-primary ms-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
+                                    onclick="inputResposta.value={{resposta.pk}}">
+                                    Responder
+                                </button>
                             </div>
                         </div>
                         {% endfor %}
@@ -130,25 +138,22 @@
 
     <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Criar um novo tópico?</h5>
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Responder?</h5>
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="form-topico">
-                <div class="pb-2 d-flex flex-wrap">
-                    <label for="input-titulo"> Titulo: </label>
-                    <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
-                    <select class="form-select flex-fill ms-sm-2">
-                        <option selected>Categorias</option>
-                        </select>
-                    </div>
+            <form action="{% url 'forum:create_resposta' view.kwargs.slug view.kwargs.topico_id %}" method="POST" class="form-topico">
+                {% csrf_token %}
+                <div class="pb-2">
+                    <input id="inputTopico"type="hidden" name="topico" value="{{topico.pk}}">
+                    <input id="inputResposta" type="hidden" name="parent" value="">
 
                     <div class="editor-container"> 
-                        <textarea id="textareaPost" required></textarea>
+                        <textarea id="textareaPost" name="texto" required></textarea>
                     </div>
 
                     <div class="mt-2">
-                        <button class="btn btn-sm btn-primary d-block ms-auto">Criar topico</button>
+                        <button class="btn btn-sm btn-primary d-block ms-auto">Salvar</button>
                     </div>
                 </div>
             </form>
@@ -167,6 +172,7 @@
             spellChecker: false,
             hideIcons: ["image"],
             status: false,
+            forceSync: true,
         });
         simplemde.value("Use markdown e tags HTML.");
 
