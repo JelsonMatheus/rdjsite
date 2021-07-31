@@ -16,27 +16,26 @@ main {
 .jumbotron { background: var(--bg-jumbotron-topico);}
 
 .forum-container {
-    background: var(--color-default);
     border-radius: 10px;
     box-shadow: 0px 0px 4px 1px rgb(179, 177, 177);
 }
-
 .forum-container .list-group:last-child{ border-radius: 0px 0px 10px 10px;}
 
-.forum-container .list-group a:hover {
-    color: var(--c-primary-text);
-    background: var(--color-secondary-light);
-}
 .forum-container .list-group a.active {
     border: none;
     color: var(--c-primary-text);
     background: var(--color-secondary);
 }
 
+.forum-container .list-group a:hover {
+    color: var(--c-primary-text);
+    background: var(--color-primary-light);
+}
+
 .btn-collapsible {
     width: 100%;
     padding: 0.5rem;
-    color: var(--c-primary-text);
+    color: var(--color-primary-light-60);
     font-weight: bold;
     background: var(--color-primary);
     border: none;
@@ -53,6 +52,7 @@ main {
 
 .container.bg {
     box-shadow: 0px 0px 5px 0px gray;
+    background: var(--bg-secondary);
 }
 .topico-container {
     padding: 3rem 0rem 0rem 0rem;

@@ -16,6 +16,7 @@ main {
 }
 
 footer {
+    color: var(--color-primary-light-60);
     background: none;
 }
 a.logo, .logo svg, .logo object { width: 10rem; height: 4rem;}

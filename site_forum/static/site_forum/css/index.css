@@ -13,26 +13,26 @@ main {
 }
 
 .forum-container {
-    background: var(--color-default);
     border-radius: 10px;
     box-shadow: 0px 0px 4px 1px rgb(179, 177, 177);
 }
 .forum-container .list-group:last-child{ border-radius: 0px 0px 10px 10px;}
 
-.forum-container .list-group a:hover {
-    color: var(--c-primary-text);
-    background: var(--color-secondary-light);
-}
 .forum-container .list-group a.active {
     border: none;
     color: var(--c-primary-text);
     background: var(--color-secondary);
 }
 
+.forum-container .list-group a:hover {
+    color: var(--c-primary-text);
+    background: var(--color-primary-light);
+}
+
 .btn-collapsible {
     width: 100%;
     padding: 0.5rem;
-    color: var(--c-primary-text);
+    color: var(--color-primary-light-60);
     font-weight: bold;
     background: var(--color-primary);
     border: none;
@@ -67,7 +67,7 @@ main {
     .add-post button svg { color: var(--color-secondary-dark);}
 
 .forum_info {
-    background: var(--color-primary-light-60);
+    background: var(--color-secondary-light);
     border-bottom: 1px solid rgb(172, 171, 171);
 }
     .titulo-forum {
@@ -80,11 +80,11 @@ main {
     min-height: 400px;
     margin-top: 1rem;
     flex-direction: column;
-    background: var(--color-default);
+    background: var(--bg-secondary);
     box-shadow: 0px 0px 5px 0px gray;
 }
 
-.list-topico > thead { background: var(--bg-secondary);}
+.list-topico > thead { background: var(--bg-main);}
 .list-topico tr { position: relative;}
 .list-topico > tbody > tr:hover { background: var(--color-primary-light-60);}
 

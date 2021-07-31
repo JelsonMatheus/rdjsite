@@ -27,7 +27,7 @@ footer {
     }
 
 .logo > object, .logo  img{
-    width:12rem;
+    width:9rem;
     height: 100%;
 }
 
@@ -45,3 +45,11 @@ footer {
         background: var(--color-secondary);
         cursor: pointer;
     }
+
+@media (min-width: 768px) {
+    .logo > object, .logo  img{
+        width:12rem;
+        height: 100%;
+    }
+}
+    

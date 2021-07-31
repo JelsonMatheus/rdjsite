@@ -2,27 +2,26 @@
 
 /********** Variáveis ***************/
 :root {
-    --color-primary: #2196f3;
-    --color-primary-light: #6ec6ff;
-    --color-primary-light-60: #6ec6ff99;
-    --color-primary-dark: #0069c0;
+    --color-primary: #23483C;
+    --color-primary-light: #448D76;
+    --color-primary-light-60: #79BEA8;
+    --color-primary-dark: #093426;
 
-    --color-secondary: #ff5722;
-    --color-secondary-light: #ff8a50;
-    --color-secondary-light-60: #ff8a5099;
-    --color-secondary-dark: #c41c00;
+    --color-secondary: #6ec6ff;
+    --color-secondary-light: #6ec6ff99;
+    --color-secondary-dark: #0069c0;
 
     --c-primary-text: black;
     --c-secondary-text: white;
     --c-text-mutted: gray;
 
-    --bg-main: #fbfcfc;
-    --bg-secondary: #f3f3f3;
+    --bg-main: #E7F3EF;
+    --bg-secondary: white;
     --bg-secondary-dark: #d0d0d0;
 
     --bg-header: var(--color-primary);
     --bg-footer: var(--color-primary-light);
-    --bg-user-icon: var(--color-primary-light);
+    --bg-user-icon: var(--color-secondary);
     --bg-jumbotron-topico: var(--color-primary-light-60);
 
     --f-lato: var('Lato', sans-serif);
@@ -58,7 +57,7 @@ main {
 }
 
 .page-item.active > .page-link { 
-    background: var(--color-secondary) !important; 
+    background: var(--color-secondary-dark) !important; 
     border: none;
 }
 
