@@ -9,6 +9,7 @@ body {
 main {
     flex-grow: 1;
     width: 100%;
+    padding: 0px;
 }
 
 .bg { background: var(--color-default); }
