@@ -1,10 +1,9 @@
 from pathlib import Path
-from typing import cast
 from decouple import config
+import mimetypes
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -14,6 +13,9 @@ SECRET_KEY = config("SECRET_KEY", '.')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+# DEFINE O MIME TYPE PARA ARQUIVOS DE MODULOS JAVASCRIPT
+mimetypes.add_type("text/javascript", "jms", True)
 
 
 # Application definition

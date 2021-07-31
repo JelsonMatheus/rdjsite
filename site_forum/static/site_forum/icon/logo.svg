@@ -1,0 +1,24 @@
+<svg viewBox="0 0 300 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue#63display=swap');
+
+		.logo {font: bold 72px 'Bebas Neue';}
+		.logo2 {font: bold 63px 'Bebas Neue';}
+
+	</style>
+	
+	<path id="path">
+		<animate id="anim" attributeName="d" from="m-65 0 h0" to="m-65 0 h1100" dur="3s" begin="0s" 
+			repeatCount="indefinite" repeatDur="30s" fill="freeze"/>
+	</path>
+	<path id="path2">
+		<animate attributeName="d" from="m174 0 h0" to="m174 0 h1100" dur="3s" begin="1s" 
+			repeatCount="indefinite" repeatDur="30s" fill="freeze"/>
+	</path>
+    <text y="80" class="logo" fill="#c41c00">
+		<textPath xlink:href="#path">Responde</textPath>
+	</text>
+    <text y="80" class="logo2">
+		<textPath xlink:href="#path2">Junto</textPath>
+	</text>
+</svg>

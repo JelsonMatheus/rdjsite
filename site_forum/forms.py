@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UsernameField
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
+from django.forms import fields
 
 from site_forum.models import Resposta, Topico
 
@@ -76,7 +77,13 @@ class TopicoCreateForm(forms.ModelForm):
             topico.save()
         return topico
 
-class RespostaCreateForm(forms.ModelForm):
+class TopicoUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Topico
+        fields = ['titulo', 'texto']
+
+
+class RespostaForm(forms.ModelForm):
     class Meta:
         model = Resposta
         fields = '__all__'

@@ -1,41 +1,47 @@
 @import url('themes/light.css');
 
 header {
-    padding: 0.8rem 1rem 0.5rem 1rem;
+    height: 3.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     background: var(--bg-header);
 }
 
 footer {
     padding: 1rem;
-    background: var(--bg-header);
+    background: var(--bg-footer);
 }
 
-.logo-text {
-    color: var(--c-secondary-text);
-    font-size: 1.2em;
-    font-weight: bold;
-    text-decoration: none;
+.logo {
+    display: inline-flex;
+    position: relative;
+    width: 12rem; 
+    height: 100%;
 }
-    .logo-text:hover {
-        color: var(--c-secondary-text);
-        font-size: 1.3em;
-        cursor: pointer;
+    .logo::after {
+        content: '';
+        display: inline;
+        position: absolute;
+        top: 0px;
+        width: 12rem;
+        height: 100%;
     }
 
-.user-info {
-    margin-left: auto;
+.logo > object, .logo  img{
+    width:12rem;
+    height: 100%;
 }
 
+.user-info { margin-left: auto;}
+
 .btn-entrar {
-    padding: 0.4rem 0.5rem 0.4rem 0.5rem;
-    background: var(--bg-primary-button);
-    color: var(--c-main-text);
+    padding: 0.3rem 0.5rem;
+    background: var(--color-secondary-dark);
+    color: var(--c-primary-text);
     text-decoration: none;
     border-radius: 2px;
 }
     .btn-entrar:hover {
         color: var(--c-secondary-text);
-        filter:drop-shadow(2px 2px 15px var(--bg-primary-button));
-        transform: scale(1.2);
+        background: var(--color-secondary);
         cursor: pointer;
     }

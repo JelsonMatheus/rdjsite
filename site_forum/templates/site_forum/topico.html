@@ -25,7 +25,7 @@
 
             <!--LEFT COLLUMN-->
             <div class="col-md-3">
-                <section class="forum-container rdj-shadow">
+                <section class="forum-container">
                     <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
                         Foruns
                     </button>
@@ -45,7 +45,7 @@
 
             <!--CENTER COLLUMN -->
             <div class="col-md-7">
-                <div class="container shadow-sm bg pb-5">
+                <div class="container bg pb-5">
                     <div class="topico-container">
                         <div class="topico-header ">
                             <h5 class="topico-title">Título: {{topico.titulo}}</h5>
@@ -59,18 +59,32 @@
                                 <span class="ms-2 align-self-center"> {{topico.user.username }}</span>
                                 <span class="ms-auto fu-data">{{topico.updated_at|timesince}}</span>
                             </div>
-                            <div class='mt-1'>
+                            <div class='mt-1 markdown'>
                                 {{topico.texto}}
                             </div>
                         </div>
 
-                        <div class="topico-footer mt-2 d-flex">
-                            <div class="text-muted">
+                        <div class="topico-footer mt-2 d-flex justify-content-end">
+                            <div class="text-muted me-auto">
                                 <span>Respostas: {{topico.resposta_set.count}}</span>
                             </div>
-                            <button class="btn btn-sm btn-primary ms-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
-                                aria-controls="offcanvasBottom" onclick="inputResposta.value=''">
-                                Responder
+                            {% if user.pk == topico.user.pk %}
+                            <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
+                                    data-form-action="EDITAR_TOPICO" onclick="activeForms(this)" aria-controls="offcanvasPost"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+            
+                                <svg viewBox="0 0 24 24" class="icon">
+                                    <use xlink:href="{% static 'site_forum/icon/edit.svg'%}#shape"></use>
+                                </svg>
+                            </button> {% endif %}
+                    
+                            <button class="btn-icon-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" aria-controls="offcanvasPost" 
+                                    data-form-action="RESPONDER" data-resposta-id="" onclick="activeForms(this)" 
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Responder">
+
+                                <svg viewBox="0 0 24 24" class="icon">
+                                    <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -82,7 +96,12 @@
                         <div class="resposta-container">
                             <div class="resposta-header d-flex">
                                 <span class="ms-auto">
-                                    Replica: {% firstof resposta.parent.user.username resposta.topico.user.username %}
+                                    <svg viewBox="0 0 24 24" class="icon icon-inverte">
+                                        <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                    </svg>
+                                    <span class="text-muted">
+                                        {% firstof resposta.parent.user.username resposta.topico.user.username %}
+                                    </span>
                                 </span>
                             </div>
 
@@ -94,15 +113,29 @@
                                     <span class="ms-2 align-self-center"> {{resposta.user.username }}</span>
                                     <span class="ms-auto fu-data">{{resposta.updated_at|timesince}}</span>
                                 </div>
-                                <div>
+                                <div class="markdown">
                                     {{ resposta.texto }}
                                 </div>
                             </div>
 
-                            <div class="resposta-footer d-flex">
-                                <button class="btn btn-sm btn-primary ms-auto" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom"
-                                    onclick="inputResposta.value={{resposta.pk}}">
-                                    Responder
+                            <div class="resposta-footer d-flex justify-content-end">
+                                {% if user.pk == resposta.user.pk %}
+                                <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
+                                    data-form-action="EDITAR_TOPICO" onclick="activeForms(this)" aria-controls="offcanvasPost"
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+            
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <use xlink:href="{% static 'site_forum/icon/edit.svg'%}#shape"></use>
+                                    </svg>
+                                </button> {% endif %}
+                        
+                                <button class="btn-icon-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" aria-controls="offcanvasPost" 
+                                    data-form-action="RESPONDER" data-resposta-id="" onclick="activeForms(this)" 
+                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Responder">
+
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -136,20 +169,42 @@
         </div>
     </div>
 
-    <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"aria-labelledby="offcanvasBottomLabel">
+    <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasPost" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
-            <h5 class="offcanvas-title" id="offcanvasBottomLabel">Responder?</h5>
-            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"aria-label="Close"></button>
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">POST</h5>
+            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form action="{% url 'forum:create_resposta' view.kwargs.slug view.kwargs.topico_id %}" method="POST" class="form-topico">
+
+            <form id="respostaForm" action="{% url 'forum:resposta' view.kwargs.slug view.kwargs.topico_id %}" method="POST" class="form-topico">
                 {% csrf_token %}
                 <div class="pb-2">
-                    <input id="inputTopico"type="hidden" name="topico" value="{{topico.pk}}">
+                    <input id="inputTopico" type="hidden" name="topico" value="{{topico.pk}}">
                     <input id="inputResposta" type="hidden" name="parent" value="">
 
                     <div class="editor-container"> 
-                        <textarea id="textareaPost" name="texto" required></textarea>
+                        <textarea name="texto" required></textarea>
+                    </div>
+
+                    <div class="mt-2">
+                        <button class="btn btn-sm btn-primary d-block ms-auto">Salvar</button>
+                    </div>
+                </div>
+            </form>
+
+            <form id="topicoForm" action="{% url 'forum:topico' view.kwargs.slug view.kwargs.topico_id %}" method="POST" class="form-topico">
+                {% csrf_token %}
+                <div class="pb-2">
+                    <input id="inputTopico" type="hidden" name="topico" value="{{topico.pk}}">
+                    <input id="inputResposta" type="hidden" name="parent" value="">
+                    
+                    <div class="pb-2 d-flex flex-wrap">
+                        <label for="input-titulo"> Titulo: </label>
+                        <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="inputTitulo" name="titulo" required>
+                    </div>
+                    
+                    <div class="editor-container"> 
+                        <textarea name="texto" required></textarea>
                     </div>
 
                     <div class="mt-2">
@@ -165,16 +220,5 @@
 {% block javascript %}
     {{ block.super }}
     <script src="{% static 'js/simplemde.min.js' %}"></script>
-    
-    <script>
-        const simplemde = new SimpleMDE({ 
-            element: document.getElementById("textareaPost") ,
-            spellChecker: false,
-            hideIcons: ["image"],
-            status: false,
-            forceSync: true,
-        });
-        simplemde.value("Use markdown e tags HTML.");
-
-    </script>
+    <script type="module" src="{% static 'site_forum/js/editorController.js' %}"></script>
 {% endblock %}

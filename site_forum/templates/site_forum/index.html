@@ -16,7 +16,7 @@
 
             <!--LEFT COLLUMN-->
             <div class="col-md-3">
-                <section class="forum-container fu-shadow">
+                <section class="forum-container">
                     <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
                         Foruns
                     </button>
@@ -35,55 +35,63 @@
             </div>
 
             <!--LEFT CENTER-->
-            <div class="col-md-7">
-                <div class="add-post text-center border fu-shadow">
-                    <button class="btn fu-secondary-border fu-radius-30 fu-hover" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
+            <div class="col-md-7 px-0 px-sm-1">
+                <div class="add-post text-center p-2 fu-shadow">
+                    <button class="fu-secondary-border" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
                         aria-controls="offcanvasBottom">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-plus-square" viewBox="0 0 16 16">
-                            <path
-                                d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
-                            <path
-                                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                            <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg>
                         Criar um novo tópico?
                     </button>
                 </div>
 
-                <section class="container-topico fu-shadow p-sm-2 pb-4">
-                    <div class="forum_info fu-secondary-border pb-4 fu-bd-b">
-                        <h6 class="titulo-forum">Forum: {{forum_atual}}</h6>
-                        <small class="text-muted">{{forum_atual.descricao}}</small>
+                <section class="container-topico pb-4">
+                    <div class="forum_info pt-3 pb-4">
+                        <h6 class="titulo-forum px-3">Forum: {{forum_atual}}</h6>
+                        <p class="px-3"><small class="text-muted">{{forum_atual.descricao}}</small></p>
                     </div>
 
-                    <div class="list-topico">
-                        {% for topico in topicos %}
-                        <a href="{{ topico.get_absolute_url }}" class="topico d-flex fu-secondary-border fu-bd-b">
-                            <div class="flex-shrink-0">
-                                <div class="fu-user d-flex justify-content-center align-items-center">
-                                    {{ topico.user.username|first|capfirst }} 
-                                </div>
-                            </div>
-                            <div class="flex-grow-1 ms-2 ms-sm-3">
-                                <div class="d-flex">
-                                    <h5 class="topico-titulo">{{ topico }}
-                                        {% if topico.categoria is not None %}
-                                        <span class="badge bg-info">{{topico.categoria}}</span>
-                                        {% endif %}
-                                    </h5>
-                                </div>
-                                <div class="topico-footer d-flex flex-wrap">
-                                    <span>Autor: {{ user.username }}</span>
-                                    <span class="ms-2 ms-sm-3">Resposta: {{topico.resposta_set.count}}</span>
-                                    <span class="ms-2 ms-sm-3">{{topico.updated_at|timesince}}</span>
-                                </div>
-                            </div>
-                        </a>
-                        {% endfor %}
-                    </div>
+                    <table class="list-topico table align-middle">
+                        <thead>
+                            <tr class="text-center text-muted d-none d-sm-table-row">
+                                <th colspan="2">Topicos</th>
+                                <th>Respostas</th>
+                            </tr>
+                        </thead>
+                        </tbody>
+                            {% for topico in topicos %}
+                            <tr>
+                                <td width="30px" class="ps-sm-3">
+                                    <div class="fu-user d-flex justify-content-center align-items-center">
+                                        {{ topico.user.username|first|capfirst }} 
+                                    </div>
+                                </td>
+                                <td class="ps-0">
+                                    <a href="{{ topico.get_absolute_url }}" class="topico stretched-link">
+                                        <div class="d-flex">
+                                            <h5 class="topico-titulo">{{ topico }}
+                                            {% if topico.categoria is not None %}
+                                                <span class="badge bg-info">{{topico.categoria}}</span>
+                                            {% endif %}
+                                            </h5>
+                                        </div>
+                                        <div class="topico-footer d-flex flex-wrap">
+                                            <span>Autor: {{ topico.user.username }}</span>
+                                            <span class="ms-2 ms-sm-3">{{topico.updated_at|timesince}}</span>
+                                        </div>
+                                    </a>
+                                </td>
+                                <td width="10px" class="text-center">
+                                    <span><b>{{topico.resposta_set.count}}</b></span>
+                                </td>
+                            </tr>
+                            {%endfor%}
+                        </tbody>
+                    </table>
 
                     <nav aria-label="Page navigation">{% if page_obj.paginator.count > 0 %}
-                        <ul class="pagination justify-content-center mt-5">
+                        <ul class="pagination pagination-sm justify-content-center mt-5">
                             {% if page_obj.has_previous %}
                             <li class="page-item"> <a class="page-link" href="?page={{page_obj.previous_page_number}}">Anterior</a></li>{%else%}
                             <li class="page-item disabled"> <a class="page-link" href="">Anterior</a></li>{% endif %}
@@ -108,7 +116,7 @@
         </div>
     </div>
 
-    <!--======= MODAIS ======-->
+    <!--=============== MODAIS ==============-->
 
     <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"  aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
@@ -116,14 +124,11 @@
             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="form-topico" action="{% url 'forum:create_topico' forum_atual.slug %}" method="POST">
+            <form class="form-topico" action="{% url 'forum:list_topico' forum_atual.slug %}" method="POST">
                 {% csrf_token %}
                 <div class="pb-2 d-flex flex-wrap">
                     <label for="input-titulo"> Titulo: </label>
                     <input class="flex-grow-1 ms-2 mb-2 mb-ms-0" id="input-titulo" name="titulo" required>
-                    <select class="form-select flex-fill ms-sm-2">
-                        <option selected>Categorias</option>
-                    </select>
                 </div>
 
                 <div class="editor-container"> 

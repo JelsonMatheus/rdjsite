@@ -1,4 +1,4 @@
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseForbidden, HttpResponseNotModified, HttpResponseRedirect
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.views.generic import ListView
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
-from .models import Resposta, Topico, Forum
-from .forms import RespostaCreateForm, UserRegisterForm, UserLoginForm, TopicoCreateForm
+from site_forum.models import Resposta, Topico, Forum
+from site_forum import forms
 
 # Create your views here.
 
@@ -23,7 +23,7 @@ def logout_view(request):
 
 class LoginView(FormView):
     template_name = 'site_forum/registration/login.html'
-    form_class = UserLoginForm
+    form_class = forms.UserLoginForm
 
     def form_valid(self, form):
         login(self.request, form.get_user())
@@ -39,7 +39,7 @@ class LoginView(FormView):
 class RegisterView(FormView):
     template_name = 'site_forum/registration/register.html'
     success_url = '/'
-    form_class = UserRegisterForm
+    form_class = forms.UserRegisterForm
     initial = {'username':''}
 
     def form_valid(self, form):
@@ -49,7 +49,8 @@ class RegisterView(FormView):
     def form_invalid(self, form):
         messages.error(self.request, "Erro ao registrar o usuário!")
         return super().form_invalid(form)
-        
+
+
 class TopicoListView(ListView):
 
     queryset = Topico.objects
@@ -64,7 +65,7 @@ class TopicoListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['form'] = TopicoCreateForm
+        context['form'] = forms.TopicoCreateForm
         context['foruns'] = Forum.objects.all()
         context['forum_atual'] = self.forum
         return context
@@ -72,7 +73,7 @@ class TopicoListView(ListView):
 class TopicoCreateView(View):
 
     def post(self, request, *args, **kwargs):
-        form = TopicoCreateForm(request.POST)
+        form = forms.TopicoCreateForm(request.POST)
         user = request.user
         forum = Forum.objects.get(slug=kwargs['slug'])
 
@@ -82,12 +83,34 @@ class TopicoCreateView(View):
         else:
             return redirect(forum)
 
+class TopicoView(View):
+    def get(self, request, *args, **kwargs):
+        view = TopicoListView.as_view()
+        return view(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        view = TopicoCreateView.as_view()
+        return view(request, *args, **kwargs)
 
-class RepostaListView(ListView):
+
+class TopicoUpdateView(View):
+
+    def post(self, request, *args, **kwargs):
+        topico = get_object_or_404(Topico, pk=kwargs['topico_id'])
+        if topico.user != request.user:
+            return HttpResponseForbidden()
+        
+        form = forms.TopicoUpdateForm(request.POST, instance=topico)
+        if form.is_valid():
+            form.save()
+            return redirect(topico)
+        
+        return HttpResponseNotModified()
+
+class TopicoRespostaListView(ListView):
     queryset = Resposta.objects.filter(deleted_at__isnull=True)
     context_object_name = 'respostas'
     template_name = 'site_forum/topico.html'
-    paginate_by = 15
     ordering = ['created_at']
 
     def get_queryset(self):
@@ -101,15 +124,31 @@ class RepostaListView(ListView):
         context['topico'] = self.topico
         return context
 
-class RespostaCreateView(View):
+
+class TopicoDetailView(View):
+    def get(self, request, *args, **kwargs):
+        view = TopicoRespostaListView.as_view()
+        return view(request, *args, **kwargs)
+    
     def post(self, request, *args, **kwargs):
-        form = RespostaCreateForm(request.POST)
+        view = TopicoUpdateView.as_view()
+        return view(request, *args, **kwargs)
+
+
+class RespostaView(View):
+    def post(self, request, *args, **kwargs):
         user = request.user
         topico = Topico.objects.get(pk=kwargs['topico_id'])
 
+        if kwargs.get('resposta_id'):
+            resposta = get_object_or_404(Resposta, pk=kwargs['resposta_id'])
+            form = forms.RespostaForm(request.POST, instance=resposta)
+        else:
+            form = forms.RespostaForm(request.POST)
+            print("loooooo")
+
         if form.is_valid():
             resposta = form.save(user)
-
-        print(form.errors)
+            print("ok")
 
         return redirect(topico)

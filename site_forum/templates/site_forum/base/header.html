@@ -1,5 +1,10 @@
+{%load static %}
 <header class="d-flex">
-    <a href="/" class="logo-text">RespondeJunto</a>
+    <a href="/" class="logo">
+        <object data="{% static 'site_forum/icon/logo.svg' %}" type="image/svg+xml">
+            <img src="{% static 'site_forum/icon/logo.svg'%} " alt="logo">
+        </object>
+    </a>
 
     <div class="user-info">
         {% if user.is_authenticated %}
@@ -9,12 +14,17 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <li>
-                  <a href="{% url 'forum:logout' %}" class="dropdown-item text-danger">Sair</a>
+                    <a href="{% url 'forum:logout' %}" class="dropdown-item text-danger">
+                        <img width="20px" height="20px" src="{% static 'site_forum/icon/logout.svg'%}"/>
+                        Sair
+                    </a>
                 </li>
             </ul>
         </div>
         {% else %}
-        <a href="{% url 'forum:login' %}?next={{request.path}}" class="btn-entrar">Entrar</a>
+        <div class="d-flex align-content-center">
+            <a href="{% url 'forum:login' %}?next={{request.path}}" class="btn-entrar">Entrar</a>
+        </div>
         {% endif %}
     </div>
 </header>

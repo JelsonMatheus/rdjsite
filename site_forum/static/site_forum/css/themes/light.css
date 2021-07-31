@@ -1,62 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
 
 /********** Variáveis ***************/
 :root {
-    --color-default: white;
-    --color-primary: #3498db;
-    --color-secondary: #1abc9c;
-    --color-error: red;
+    --color-primary: #2196f3;
+    --color-primary-light: #6ec6ff;
+    --color-primary-light-60: #6ec6ff99;
+    --color-primary-dark: #0069c0;
 
-    --c-main-text: black;
+    --color-secondary: #ff5722;
+    --color-secondary-light: #ff8a50;
+    --color-secondary-light-60: #ff8a5099;
+    --color-secondary-dark: #c41c00;
+
+    --c-primary-text: black;
     --c-secondary-text: white;
     --c-text-mutted: gray;
 
     --bg-main: #fbfcfc;
+    --bg-secondary: #f3f3f3;
+    --bg-secondary-dark: #d0d0d0;
+
     --bg-header: var(--color-primary);
-    --bg-footer: var(--color-secondary);
-    --bg-user-icon: #5eace0;
-    --bg-primary-button: #85c1e9;
-    --bg-icon: red;
-    --bg-select-topico: rgb(206, 237, 241);
-    --bg-jumbotron-topico: #03DAC6;
+    --bg-footer: var(--color-primary-light);
+    --bg-user-icon: var(--color-primary-light);
+    --bg-jumbotron-topico: var(--color-secondary-light-60);
+
+    --f-lato: var('Lato', sans-serif);
 }
 
 /*********** Styles gerais **********/
 main {
     background: var(--bg-main);
-    color: var(--c-main-text);
+    color: var(--c-primary-text);
 }
+
+.markdown { font-family: 'Lato', sans-serif; }
+.markdown h1 { font-size: 1.8em;}
+.markdown h2 { font-size: 1.5em;}
+.markdown h3 { font-size: 1.2em;}
+.markdown h4 { font-size: 1em;}
 
 /*********** utilitários ************/
-.fu-shadow { box-shadow: rgba(32, 32, 32, 0.2) 0px 4px 12px;}
-
-.fu-secondary-border{
-    border: 1px solid var(--color-secondary);
-}
-.fu-bd-b {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-}
-
-.fu-radius-30{
-    border-radius: 30px;
-}
-
-.fu-hover:hover {
-    color: var(--c-secondary-text);
-    background: var(--color-secondary);
-}
+.fu-shadow { box-shadow: rgba(32, 32, 32, 0.2) 0px 2px 4px;}
 
 .fu-user {
     width: 2.5rem;
     height: 2.5rem;
     font-size: 1.2em;
     background: var(--bg-user-icon);
-    border: 1px solid gray;
+    border: 2px solid gray;
     border-radius: 50%;
 }
 
 .fu-data {
     font-size: 0.8em;
     color: gray;
+}
+
+.page-item.active > .page-link { 
+    background: var(--color-secondary) !important; 
+    border: none;
+}
+
+.btn-icon-secondary {
+    background: none;
+    border: none;
+    color: var(--color-secondary-dark);
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.icon-inverte {
+    transform: scale(-1, 1);
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+    .icon {
+        width: 20px;
+        height: 20px;
+    }
 }

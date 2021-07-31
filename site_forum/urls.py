@@ -1,6 +1,6 @@
 from django.urls import path
 
-from . import views
+from .views import views, ajax
 
 app_name = 'forum'
 
@@ -10,8 +10,11 @@ urlpatterns = [
     path('accounts/logout/', views.logout_view, name='logout'),
     path('accounts/register/', views.RegisterView.as_view(), name='register'),
 
-    path('foruns/<slug:slug>/', views.TopicoListView.as_view(), name='page'),
-    path('foruns/<slug:slug>/add/', views.TopicoCreateView.as_view(), name='create_topico'),
-    path('foruns/<slug:slug>/<int:topico_id>/', views.RepostaListView.as_view(), name='topico'),
-    path('foruns/<slug:slug>/<int:topico_id>/add/', views.RespostaCreateView.as_view(), name='create_resposta'),
+    path('foruns/<slug:slug>/topicos/', views.TopicoView.as_view(), name='list_topico'),
+    path('foruns/<slug:slug>/topicos/<int:topico_id>/', views.TopicoDetailView.as_view(), name='topico'),
+    path('foruns/<slug:slug>/topicos/<int:topico_id>/respostas/', views.RespostaView.as_view(), name='resposta'),
+    path('foruns/<slug:slug>/topicos/<int:topico_id>/respostas/<int:resposta_id>/', views.RespostaView.as_view(), name='detail_resposta'),
+
+    path('ajax/topico/', ajax.JSONTopicoView.as_view(), name='jax_topico'),
+    path('ajax/resposta/', ajax.JSONRespostaView.as_view(), name='jax_resposta'),
 ]
