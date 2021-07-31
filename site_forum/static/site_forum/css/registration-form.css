@@ -6,7 +6,7 @@ body {
     min-height: 100%;
     padding: 1rem 0rem 1rem 0rem;
     flex-direction: column;
-    background: #b1d3eb;
+    background: var(--color-primary);
 }
 
 main {
@@ -18,10 +18,10 @@ main {
 footer {
     background: none;
 }
-
+a.logo, .logo svg, .logo object { width: 10rem; height: 4rem;}
 .svg-user {
     width: 8rem;
-    color: var(--color-secondary);
+    color: var(--color-secondary-light);
 }
 
 .erro {
@@ -31,8 +31,9 @@ footer {
 
 .container-login {
     margin: 0rem 1rem 0rem 1rem;
-    background: var(--color-default);
+    background: none;
     padding: 1rem 0.5rem 1rem 0.5rem;
+    background: var(--bg-main);
 }
 
 @media (min-width: 576px) {

@@ -23,7 +23,7 @@
     --bg-header: var(--color-primary);
     --bg-footer: var(--color-primary-light);
     --bg-user-icon: var(--color-primary-light);
-    --bg-jumbotron-topico: var(--color-secondary-light-60);
+    --bg-jumbotron-topico: var(--color-primary-light-60);
 
     --f-lato: var('Lato', sans-serif);
 }
