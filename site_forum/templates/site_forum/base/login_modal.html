@@ -1,0 +1,18 @@
+<!-- Modal LOGIN REQUERIDO -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loginModalLabel">Login necessário</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Para executar essa ação você precisa entrar na sua conta!</p>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary" href="{% url 'forum:login' %}?next={{request.path}}">Entrar</a>
+        <a class="btn btn-success" href="{% url 'forum:register'%}">Cadastrar-se</a>
+      </div>
+    </div>
+  </div>
+</div>

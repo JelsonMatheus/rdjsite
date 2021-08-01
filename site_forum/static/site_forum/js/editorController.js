@@ -1,28 +1,33 @@
 import { ajaxForum } from "./modules/ajaxForum.mjs";
 
-const simplemde = new SimpleMDE({ 
-    element: document.querySelector("#topicoForm textarea") ,
-    spellChecker: false,
-    hideIcons: ["image"],
-    status: false,
-    forceSync: true,
-});
+let simplemdeTopico = null;
+let simplemdeResposta = null;
 
-const simplemdeResponder = new SimpleMDE({ 
-    element: document.querySelector("#respostaForm textarea") ,
-    spellChecker: false,
-    hideIcons: ["image"],
-    status: false,
-    forceSync: true,
-});
-
-const urlCreateRespostaCache = document.getElementById("respostaForm").action;
-
-(function markdownToHTMLPosts() {
-    document.querySelectorAll(".markdown").forEach(element => {
-        element.innerHTML = simplemde.options.previewRender(element.innerText);
+if (document.querySelector("#topicoForm textarea")) {
+    simplemdeTopico = new SimpleMDE({ 
+        element: document.querySelector("#topicoForm textarea"),
+        spellChecker: false,
+        hideIcons: ["image"],
+        status: false,
+        forceSync: true,
+        lineWrapping: true,
     });
-})();
+}
+
+if (document.querySelector("#respostaForm textarea")) {
+    simplemdeResposta = new SimpleMDE({ 
+        element: document.querySelector("#respostaForm textarea"),
+        spellChecker: false,
+        hideIcons: ["image"],
+        status: false,
+        forceSync: true,
+        lineWrapping: true,
+    });
+}
+
+
+const urlCreateRespostaCache = 
+    (document.getElementById("respostaForm"))? document.getElementById("respostaForm").action : "";
 
 
 window.activeForms =  function activeForms(element) {
@@ -50,7 +55,7 @@ function activeFormEditTopico() {
     const idTopico = document.getElementById("inputTopico").value;
     
     ajaxForum.getTopicoById(idTopico).then(json => {
-        simplemde.value(json.data[0].texto);
+        simplemdeTopico.value(json.data[0].texto);
         document.getElementById("inputTitulo").value = json.data[0].titulo;
     });
 

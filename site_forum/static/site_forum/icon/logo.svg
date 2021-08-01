@@ -15,10 +15,10 @@
 		<animate attributeName="d" from="m236 0 h0" to="m236 0 h1100" dur="3s" begin="1s" 
 			repeatCount="indefinite" repeatDur="30s" fill="freeze"/>
 	</path>
-    <text y="80" class="logo" fill="#6ec6ff">
+    <text y="70" class="logo" fill="#6ec6ff">
 		<textPath xlink:href="#path">Responde</textPath>
 	</text>
-    <text y="80" class="logo2" fill="#79BEA8">
+    <text y="70" class="logo2" fill="#79BEA8">
 		<textPath xlink:href="#path2">Junto</textPath>
 	</text>
 </svg>

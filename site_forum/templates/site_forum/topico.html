@@ -12,7 +12,7 @@
 {% block content %}
 
 <main>
-    <div class="container-fluid px-1 my-4 ">
+    <div class="container-fluid my-4">
 
         <section class="jumbotron container mb-4 rounded-3">
             <div class="container-fluid py-4 text-center">
@@ -21,10 +21,10 @@
             </div>
         </section>
         
-        <div class="row gx-sm-3 gy-3">
+        <div class="row gx-3 gy-3">
 
             <!--LEFT COLLUMN-->
-            <div class="col-md-3 px-4">
+            <div class="col-md-3 px-0 px-sm-4">
                 <section class="forum-container">
                     <button class="btn-collapsible" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForuns" aria-expanded="false" aria-controls="collapseForuns">
                         Foruns
@@ -44,7 +44,7 @@
             </div>
 
             <!--CENTER COLLUMN -->
-            <div class="col-md-7">
+            <div class="col-md-7 px-0 px-sm-1">
                 <div class="container bg pb-5">
                     <div class="topico-container">
                         <div class="topico-header ">
@@ -60,7 +60,7 @@
                                 <span class="ms-auto fu-data">{{topico.updated_at|timesince}}</span>
                             </div>
                             <div class='mt-1 markdown'>
-                                {{topico.texto}}
+                                <pre>{{topico.texto}}</pre>
                             </div>
                         </div>
 
@@ -71,21 +71,30 @@
                             {% if user.pk == topico.user.pk %}
                             <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
                                     data-form-action="EDITAR_TOPICO" onclick="activeForms(this)" aria-controls="offcanvasPost"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                    data-fs-toggle="tooltip" data-bs-placement="top" title="Editar">
             
                                 <svg viewBox="0 0 24 24" class="icon">
                                     <use xlink:href="{% static 'site_forum/icon/edit.svg'%}#shape"></use>
                                 </svg>
                             </button> {% endif %}
-                    
+
+                            {% if user.is_authenticated %}
                             <button class="btn-icon-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" aria-controls="offcanvasPost" 
                                     data-form-action="RESPONDER" data-resposta-id="" onclick="activeForms(this)" 
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Responder">
+                                    data-sf-toggle="tooltip" data-bs-placement="top" title="Responder">
 
                                 <svg viewBox="0 0 24 24" class="icon">
                                     <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
                                 </svg>
-                            </button>
+                            </button> 
+                            {% else %}
+                            <button class="btn-icon-secondary" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-placement="top"
+                                data-sf-toggle="tooltip" data-bs-placement="top" title="Responder"> 
+
+                                <svg viewBox="0 0 24 24" class="icon">
+                                    <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                </svg>
+                            </button> {% endif %}
                         </div>
                     </div>
 
@@ -114,7 +123,7 @@
                                     <span class="ms-auto fu-data">{{resposta.updated_at|timesince}}</span>
                                 </div>
                                 <div class="markdown">
-                                    {{ resposta.texto }}
+                                    <pre>{{ resposta.texto }}</pre>
                                 </div>
                             </div>
 
@@ -122,21 +131,30 @@
                                 {% if user.pk == resposta.user.pk %}
                                 <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
                                     data-form-action="EDITAR_TOPICO" onclick="activeForms(this)" aria-controls="offcanvasPost"
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Editar">
+                                    data-sf-toggle="tooltip" data-bs-placement="top" title="Editar">
             
                                     <svg viewBox="0 0 24 24" class="icon">
                                         <use xlink:href="{% static 'site_forum/icon/edit.svg'%}#shape"></use>
                                     </svg>
                                 </button> {% endif %}
-                        
+
+                                {% if user.is_authenticated %}
                                 <button class="btn-icon-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" aria-controls="offcanvasPost" 
                                     data-form-action="RESPONDER" data-resposta-id="" onclick="activeForms(this)" 
-                                    data-bs-toggle="tooltip" data-bs-placement="top" title="Responder">
+                                    data-sf-toggle="tooltip" data-bs-placement="top" title="Responder"> 
 
                                     <svg viewBox="0 0 24 24" class="icon">
                                         <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
                                     </svg>
-                                </button>
+                                </button> 
+                                {% else %}
+                                <button class="btn-icon-secondary" data-bs-target="#loginModal" data-bs-toggle="modal" data-bs-placement="top"
+                                    data-sf-toggle="tooltip" data-bs-placement="top" title="Responder">  
+
+                                    <svg viewBox="0 0 24 24" class="icon">
+                                        <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                    </svg>
+                                </button> {% endif %}
                             </div>
                         </div>
                         {% endfor %}
@@ -168,7 +186,9 @@
             </div>
         </div>
     </div>
-
+    
+    <!--MODAIS-->
+    {% if user.is_authenticated %}
     <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasPost" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
             <h5 class="offcanvas-title" id="offcanvasBottomLabel">POST</h5>
@@ -213,12 +233,31 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> {% endif %}
+
+    {% if not user.is_authenticated%}
+        {% include "site_forum/base/login_modal.html" %}
+    {% endif %}
 </main>
 {% endblock %}
 
 {% block javascript %}
     {{ block.super }}
+
     <script src="{% static 'js/simplemde.min.js' %}"></script>
     <script type="module" src="{% static 'site_forum/js/editorController.js' %}"></script>
+
+    <script>
+        (function markdownToHTMLPosts() {
+            document.querySelectorAll(".markdown").forEach(element => {
+                const makdownText = element.querySelector("pre").innerHTML;
+                element.innerHTML = SimpleMDE.prototype.markdown(makdownText);
+            });
+        })();
+
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-sf-toggle="tooltip"]'))
+        const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 {% endblock %}

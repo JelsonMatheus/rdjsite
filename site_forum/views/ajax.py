@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.exceptions import ImproperlyConfigured
+from django.http.response import HttpResponseForbidden
 from site_forum.models import Resposta, Topico
 
 class FilterMixin:
@@ -33,12 +34,15 @@ class JSONModelView(View, JSONMixin, FilterMixin):
     queryset = None
 
     def get(self, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self.response_to_json(context)
+        if self.request.user.is_authenticated:
+            context = self.get_context_data(**kwargs)
+            return self.response_to_json(context)
+        else:
+            return HttpResponseForbidden('Autenticação necessária.')
     
     def get_queryset(self, **kwargs):
         if self.queryset is None:
-            raise ImproperlyConfigured("JSONModelview requer um queryset atributo.")
+            raise ImproperlyConfigured('JSONModelview requer um queryset atributo.')
 
         queryset = self.get_queryset_filter(self.request)
         return queryset
@@ -47,7 +51,7 @@ class JSONModelView(View, JSONMixin, FilterMixin):
         queryset = self.get_queryset(**kwargs)
         data = self.get_data_json(queryset)
         context = {'count': len(data)}
-        context[self.data_name] = self.get_data_json(queryset)
+        context[self.data_name] = data
 
         return context
     

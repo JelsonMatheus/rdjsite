@@ -37,8 +37,9 @@
             <!--LEFT CENTER-->
             <div class="col-md-7 px-0 px-sm-1">
                 <div class="add-post text-center p-2 fu-shadow">
-                    <button class="fu-secondary-border" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
-                        aria-controls="offcanvasBottom">
+                    <button class="fu-secondary-border" {% if user.is_authenticated %} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" 
+                        aria-controls="offcanvasBottom" {% else %} data-bs-toggle="modal" data-bs-target="#loginModal" {% endif %}>
+                        
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
                             <path d="M0 0h24v24H0z" fill="none"/>
                             <path d="M21 6h-2v9H6v2c0 .55.45 1 1 1h11l4 4V7c0-.55-.45-1-1-1zm-4 6V3c0-.55-.45-1-1-1H3c-.55 0-1 .45-1 1v14l4-4h10c.55 0 1-.45 1-1z"/></svg>
@@ -59,7 +60,7 @@
                                 <th>Respostas</th>
                             </tr>
                         </thead>
-                        </tbody>
+                        <tbody>
                             {% for topico in topicos %}
                             <tr>
                                 <td width="30px" class="ps-sm-3">
@@ -116,8 +117,8 @@
         </div>
     </div>
 
-    <!--=============== MODAIS ==============-->
-
+    {# --=============== MODAIS PARA USUÁRIOS AUTENTICADOS ==============--> #}
+    {% if user.is_authenticated %}
     <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasBottom"  aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
             <h5 class="offcanvas-title" id="offcanvasBottomLabel">Criar um novo tópico?</h5>
@@ -140,7 +141,13 @@
                 </div>
             </form>
         </div>
-    </div>
+    </div> {% endif%}
+
+    {#--=============== MODAIS PARA USUÁRIOS AUTENTICADOS ==============--#}
+
+    {% if not user.is_authenticated %}
+    {% include "site_forum/base/login_modal.html" %}
+    {% endif %}
 </main>
 {% endblock %}
 
@@ -149,14 +156,24 @@
     <script src="{% static 'js/simplemde.min.js' %}"></script>
     
     <script>
-        const simplemde = new SimpleMDE({ 
-            element: document.getElementById("textareaPost") ,
-            spellChecker: false,
-            hideIcons: ["image"],
-            status: false,
-            forceSync: true,
-        });
-        simplemde.value("Use markdown e tags HTML.");
+
+        function initTextEditor() {
+            const textarea = document.getElementById("textareaPost");
+            if(textarea) {
+                const simplemde = new SimpleMDE({ 
+                    element: textarea,
+                    spellChecker: false,
+                    hideIcons: ["image"],
+                    status: false,
+                    forceSync: true,
+                    lineWrapping: true,
+                });
+
+                simplemde.value("Use tags html ou markdown.");
+            }
+        }
+
+        initTextEditor();
 
     </script>
 {% endblock %}

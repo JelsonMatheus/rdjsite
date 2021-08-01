@@ -15,6 +15,6 @@ urlpatterns = [
     path('foruns/<slug:slug>/topicos/<int:topico_id>/respostas/', views.RespostaView.as_view(), name='resposta'),
     path('foruns/<slug:slug>/topicos/<int:topico_id>/respostas/<int:resposta_id>/', views.RespostaView.as_view(), name='detail_resposta'),
 
-    path('ajax/topico/', ajax.JSONTopicoView.as_view(), name='jax_topico'),
-    path('ajax/resposta/', ajax.JSONRespostaView.as_view(), name='jax_resposta'),
+    path('ajax/topicos/', ajax.JSONTopicoView.as_view(), name='jax_topico'),
+    path('ajax/respostas/', ajax.JSONRespostaView.as_view(), name='jax_resposta'),
 ]
