@@ -64,16 +64,15 @@ function activeFormEditTopico() {
 
 function activeFormResponder(resposta_id, create=true) {
     const form = document.getElementById("respostaForm");
+    document.getElementById("inputResposta").value = resposta_id;
 
     if(create) {
         form.action = urlCreateRespostaCache;
-        document.getElementById("inputResposta").value = resposta_id;
     } else {
         ajaxForum.getRespostaById(resposta_id).then(json => {
-            form.action = urlCreateRespostaCache + `${resposta_id}/`;
-            simplemdeResponder.value(json.data[0].texto);
+            form.action = urlCreateRespostaCache + `${resposta_id}/#post-${resposta_id}`;
+            simplemdeResposta.value(json.data[0].texto);
             document.getElementById("inputResposta").value = json.data[0].parent__id;
-            console.log(json.data[0].parent)
         });
     }
 

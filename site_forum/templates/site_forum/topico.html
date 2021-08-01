@@ -46,7 +46,8 @@
             <!--CENTER COLLUMN -->
             <div class="col-md-7 px-0 px-sm-1">
                 <div class="container bg pb-5">
-                    <div class="topico-container">
+                    <div class="topico-container"> <a class="visually-hidden" name="post{{topico.pk}}"></a>
+                        
                         <div class="topico-header ">
                             <h5 class="topico-title">Título: {{topico.titulo}}</h5>
                         </div>
@@ -102,15 +103,18 @@
 
                     <div class="resposta-list">
                         {% for resposta in respostas %}
-                        <div class="resposta-container">
+                        <div class="resposta-container"> <a class="visually-hidden" name="post{{resposta.pk}}"></a>
+                            
                             <div class="resposta-header d-flex">
                                 <span class="ms-auto">
-                                    <svg viewBox="0 0 24 24" class="icon icon-inverte">
-                                        <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
-                                    </svg>
-                                    <span class="text-muted">
-                                        {% firstof resposta.parent.user.username resposta.topico.user.username %}
-                                    </span>
+                                    <a class="text-decoration-none" href="#post-{%firstof resposta.parent.pk resposta.topico.pk%}">
+                                        <svg viewBox="0 0 24 24" class="icon icon-inverte">
+                                            <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
+                                        </svg>
+                                        <span class="text-muted">
+                                            {% firstof resposta.parent.user.username resposta.topico.user.username %}
+                                        </span>
+                                    </a>
                                 </span>
                             </div>
 
@@ -130,7 +134,7 @@
                             <div class="resposta-footer d-flex justify-content-end">
                                 {% if user.pk == resposta.user.pk %}
                                 <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
-                                    data-form-action="EDITAR_TOPICO" onclick="activeForms(this)" aria-controls="offcanvasPost"
+                                    data-form-action="EDITAR_RESPOSTA" data-resposta-id="{{resposta.pk}}" onclick="activeForms(this)" aria-controls="offcanvasPost"
                                     data-sf-toggle="tooltip" data-bs-placement="top" title="Editar">
             
                                     <svg viewBox="0 0 24 24" class="icon">
@@ -140,7 +144,7 @@
 
                                 {% if user.is_authenticated %}
                                 <button class="btn-icon-secondary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" aria-controls="offcanvasPost" 
-                                    data-form-action="RESPONDER" data-resposta-id="" onclick="activeForms(this)" 
+                                    data-form-action="RESPONDER" data-resposta-id="{{resposta.pk}}" onclick="activeForms(this)" 
                                     data-sf-toggle="tooltip" data-bs-placement="top" title="Responder"> 
 
                                     <svg viewBox="0 0 24 24" class="icon">

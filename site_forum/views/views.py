@@ -145,10 +145,8 @@ class RespostaView(View):
             form = forms.RespostaForm(request.POST, instance=resposta)
         else:
             form = forms.RespostaForm(request.POST)
-            print("loooooo")
 
         if form.is_valid():
             resposta = form.save(user)
-            print("ok")
 
-        return redirect(topico)
+        return redirect(topico.get_absolute_url() + '#post' + str(resposta.pk))
