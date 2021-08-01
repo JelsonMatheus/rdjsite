@@ -23,7 +23,7 @@
                 </svg>
             </div>
 
-            <form action="{% url 'forum:login' %}?next={{request.GET.next}}" method="POST"
+            <form action="{% url 'forum:login' %}{% if request.GET.next %}?next={{request.GET.next}} {%endif%}" method="POST"
                 class="row row-cols-lg auto g-3 align-center"> {% csrf_token %}
                 <div class="col-12">
                     <label class="visually-hidden" for="inputUsername">UserName</label>
