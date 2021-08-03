@@ -3,7 +3,6 @@ from django.contrib.auth.forms import UsernameField
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 from django import forms
-from django.forms import fields
 
 from site_forum.models import Resposta, Topico
 
@@ -94,5 +93,6 @@ class RespostaForm(forms.ModelForm):
         resposta.user = user
         if commit:
             resposta.save()
+        
         return resposta
         

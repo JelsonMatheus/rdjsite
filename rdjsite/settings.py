@@ -27,8 +27,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'notifications',
     'site_forum.apps.SiteForumConfig',
 ]
+
+DJANGO_NOTIFICATIONS_CONFIG = { 'USE_JSONFIELD': True}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

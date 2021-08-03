@@ -107,7 +107,7 @@
                             
                             <div class="resposta-header d-flex">
                                 <span class="ms-auto">
-                                    <a class="text-decoration-none" href="#post-{%firstof resposta.parent.pk resposta.topico.pk%}">
+                                    <a class="text-decoration-none" href="#post{%firstof resposta.parent.pk resposta.topico.pk%}">
                                         <svg viewBox="0 0 24 24" class="icon icon-inverte">
                                             <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
                                         </svg>
