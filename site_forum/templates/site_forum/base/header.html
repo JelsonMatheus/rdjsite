@@ -1,4 +1,4 @@
-{%load static %}
+{%load static forum_tags notifications_tags %}
 <header class="d-flex">
     <a href="/" class="logo">
         <object data="{% static 'site_forum/icon/logo.svg' %}" type="image/svg+xml">
@@ -8,6 +8,42 @@
 
     <div class="user-info">
         {% if user.is_authenticated %}
+
+        <div class="btn-group">{% with notificacoes=user.notifications.unread  notificacoes_reads=user.notifications.read%} 
+            <button class="btn notification position-relative me-3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                </svg>
+
+                {% if notificacoes.count %}
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{notificacoes.count}}
+                    <span class="visually-hidden">messagens não lidas</span>
+                </span> {% endif %}
+            </button> 
+
+            <ul class="dropdown-menu menu-notificacao" aria-labelledby="dropdownNotification">
+                <li><h6 class="dropdown-header">Notificações</h6></li>
+                
+                {% for notificacao in notificacoes %}
+	            <li class="unread-notify" data-is-unread="{{notificacao.unread}}" data-slug="{{notificacao.slug}}">
+                    <span class="circulo"><span class="visually-hidden">Nova notificação</span></span>
+	                {{ notificacao|shownotify }} 		
+		        </li> {% endfor %}
+
+                {% if notificacoes_reads.count %}
+                <li><hr class="dropdown-divider"></li>
+                <li><h6 class="dropdown-header">Notificações lidas</h6></li>
+
+                {% for notifi in notificacoes_reads %}
+                <li class="d-flex" data-is-unread="{{notifi.unread}}" data-slug="{{notifi.slug}}">
+                    {{ notifi|shownotify }} 
+                    <button class="btn-close" aria-label="Delete" onclick="deleteNotification(this)"></button>
+                </li>
+                {% endfor %} {% endif %}
+            </ul>
+        </div>{% endwith %}
+
         <div class="btn-group">
             <button type="button" class="fu-user" data-bs-toggle="dropdown" aria-expanded="false">
                 {{ user.username|first|capfirst }}

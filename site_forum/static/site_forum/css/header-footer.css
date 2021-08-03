@@ -33,6 +33,45 @@ footer {
 
 .user-info { margin-left: auto;}
 
+.notification {
+    padding: 0px;
+    color: var(--color-primary-light-60);
+}
+.notification:hover { color: var(--color-secondary);}
+
+.menu-notificacao { 
+    max-height: 55vh;
+    width: 18rem;
+    font-size: 0.8em;
+    overflow-y: auto;
+}
+
+.menu-notificacao  button {
+    white-space: normal;
+    line-break: break-word;
+}
+.menu-notificacao > .unread-notify { display: flex;}
+.menu-notificacao > .unread-notify .dropdown-item { 
+    padding-left: 0.5rem;
+}
+.menu-notificacao > li > .circulo {
+    width: 6px;
+    height: 6px;
+    margin-left: 1rem;
+    align-self: center;
+    background: red;
+    border-radius: 50%;
+}
+
+.menu-notificacao .dropdown-item:hover,
+.menu-notificacao .dropdown-item:active
+{ 
+    background: inherit;
+    color: inherit;
+}
+
+.menu-notificacao > li:hover{ background: var(--bg-main);}
+
 .btn-entrar {
     padding: 0.3rem 0.5rem;
     background: var(--color-secondary-dark);

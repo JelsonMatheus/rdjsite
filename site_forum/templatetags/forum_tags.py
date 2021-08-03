@@ -1,4 +1,5 @@
 from django import template
+from django.utils.safestring import mark_safe
 
 register = template.Library()
 
@@ -13,3 +14,14 @@ def rangepage(page_obj, limit=4):
         else min(limit, num_pages)
 
     return [i for i in range(start, end + 1)]
+
+
+@register.filter(name='shownotify')
+def shownotify(notifi):
+    html = f'''
+        <button class="dropdown-item pe-3" data-notify="true" data-link="{notifi.data['url']}">
+            <b>{notifi.actor.username}</b> respondeu em <span class="text-primary">{notifi.target}</span>
+        </button>'''
+    
+    return mark_safe(html)
+

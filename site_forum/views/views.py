@@ -6,8 +6,10 @@ from django.contrib import messages
 from django.views.generic import ListView
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
+
 from site_forum.models import Resposta, Topico, Forum
 from site_forum import forms
+from site_forum.services import notifyservices
 
 # Create your views here.
 
@@ -143,10 +145,13 @@ class RespostaView(View):
         if kwargs.get('resposta_id'):
             resposta = get_object_or_404(Resposta, pk=kwargs['resposta_id'])
             form = forms.RespostaForm(request.POST, instance=resposta)
+
         else:
             form = forms.RespostaForm(request.POST)
 
         if form.is_valid():
             resposta = form.save(user)
-
+            if not kwargs.get('resposta_id'):
+                notifyservices.notify_answer(request, topico, resposta)
+            
         return redirect(topico.get_absolute_url() + '#post' + str(resposta.pk))
