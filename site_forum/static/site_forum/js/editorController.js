@@ -11,6 +11,7 @@ if (document.querySelector("#topicoForm textarea")) {
         status: false,
         forceSync: true,
         lineWrapping: true,
+        autofocus: true,
     });
 }
 
@@ -22,6 +23,7 @@ if (document.querySelector("#respostaForm textarea")) {
         status: false,
         forceSync: true,
         lineWrapping: true,
+        autofocus: true,
     });
 }
 

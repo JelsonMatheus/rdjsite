@@ -38,7 +38,7 @@
                 {% for notifi in notificacoes_reads %}
                 <li class="d-flex" data-is-unread="{{notifi.unread}}" data-slug="{{notifi.slug}}">
                     {{ notifi|shownotify }} 
-                    <button class="btn-close" aria-label="Delete" onclick="deleteNotification(this)"></button>
+                    <button class="btn-close me-1" aria-label="Delete" onclick="deleteNotification(this)"></button>
                 </li>
                 {% endfor %} {% endif %}
             </ul>
