@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.views.generic.base import View
 from django.core.exceptions import ImproperlyConfigured
-from django.http.response import HttpResponseForbidden
+from django.http.response import HttpResponseNotFound
 from site_forum.models import Resposta, Topico
 
 class FilterMixin:
@@ -38,7 +38,7 @@ class JSONModelView(View, JSONMixin, FilterMixin):
             context = self.get_context_data(**kwargs)
             return self.response_to_json(context)
         else:
-            return HttpResponseForbidden('Autenticação necessária.')
+            return HttpResponseNotFound()
     
     def get_queryset(self, **kwargs):
         if self.queryset is None:

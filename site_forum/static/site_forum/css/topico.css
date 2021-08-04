@@ -92,7 +92,20 @@ main {
 .tooltip.bs-tooltip-start .tooltip-arrow::before { border-left-color: var(--color-primary-light-60);}
 .tooltip.bs-tooltip-end .tooltip-arrow::before { border-right-color: var(--color-primary-light-60);}
 
+.target-on { animation: targetClick 2s linear;}
+.topico-container:target:not(.target-on) {animation: targetOn 2s linear;}
+.resposta-container:target:not(.target-on) {animation: targetOn 2s linear;}
 
+
+@keyframes targetOn {
+    from {background: var(--color-secondary-light);}
+    to {background: var(--bg-secondary);}
+}
+
+@keyframes targetClick {
+    from {background: var(--color-secondary-light);}
+    to {background: var(--bg-secondary);}
+}
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
     #collapseForuns {

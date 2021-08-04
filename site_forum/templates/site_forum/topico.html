@@ -46,7 +46,7 @@
             <!--CENTER COLLUMN -->
             <div class="col-md-7 px-0 px-sm-1">
                 <div class="container bg pb-5">
-                    <div class="topico-container"> <a class="visually-hidden" name="post{{topico.pk}}"></a>
+                    <div id="post{{topico.pk}}" class="topico-container">
                         
                         <div class="topico-header ">
                             <h5 class="topico-title">Título: {{topico.titulo}}</h5>
@@ -103,11 +103,12 @@
 
                     <div class="resposta-list">
                         {% for resposta in respostas %}
-                        <div class="resposta-container"> <a class="visually-hidden" name="post{{resposta.pk}}"></a>
+                        <div id="post{{resposta.pk}}" class="resposta-container">
                             
                             <div class="resposta-header d-flex">
                                 <span class="ms-auto">
-                                    <a class="text-decoration-none" href="#post{%firstof resposta.parent.pk resposta.topico.pk%}">
+                                    <a class="text-decoration-none" href="#post{%firstof resposta.parent.pk resposta.topico.pk%}"
+                                            onclick="targetOn(this)">
                                         <svg viewBox="0 0 24 24" class="icon icon-inverte">
                                             <use xlink:href="{% static 'site_forum/icon/reply.svg'%}#shape"></use>
                                         </svg>
@@ -263,5 +264,13 @@
         const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+
+        function targetOn(elem) {
+            const target = document.getElementById(elem.href.split("#")[1]);
+            
+            target.classList.remove("target-on");
+            target.offsetWidth = target.offsetWidth;
+            target.classList.add("target-on");
+        }
     </script>
 {% endblock %}
