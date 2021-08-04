@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <div class="topico-footer mt-2 d-flex justify-content-end">
+                        <div class="topico-footer mt-2 pb-3 d-flex justify-content-end">
                             <div class="text-muted me-auto">
                                 <span>Respostas: {{topico.resposta_set.count}}</span>
                             </div>
@@ -98,8 +98,6 @@
                             </button> {% endif %}
                         </div>
                     </div>
-
-                    <hr>
 
                     <div class="resposta-list">
                         {% for resposta in respostas %}

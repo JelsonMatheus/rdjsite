@@ -57,6 +57,7 @@ main {
 }
 .topico-container {
     padding: 3rem 0rem 0rem 0rem;
+    border-bottom: 1px solid gray;
 }
 .topico-title {
     font-size: 1em;
