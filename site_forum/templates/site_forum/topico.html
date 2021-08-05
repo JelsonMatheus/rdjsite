@@ -1,13 +1,15 @@
 {% extends 'site_forum/base/base.html' %}
 {% load static %} {% load forum_tags%}
 
+{% block title %}RespondeJunto{% endblock %}
+
 {% block css %}
 {{block.super }}
     <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet">
     <link href="{% static 'site_forum/css/topico.css' %}" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
 {% endblock %}
-
-{% block title %}RespondeJunto{% endblock %}
 
 {% block content %}
 
@@ -44,15 +46,15 @@
             </div>
 
             <!--CENTER COLLUMN -->
-            <div class="col-md-7 px-0 px-sm-1">
-                <div class="container bg pb-5">
+            <div class="col-md-7 px-0">
+                <div class="container bg pb-5 px-0">
                     <div id="post{{topico.pk}}" class="topico-container">
                         
-                        <div class="topico-header ">
+                        <div class="topico-header px-2">
                             <h5 class="topico-title">Título: {{topico.titulo}}</h5>
                         </div>
 
-                        <div class="topico-body mt-2">
+                        <div class="topico-body px-2 mt-2">
                             <div class="d-flex mb-2">
                                 <div class="fu-user d-flex justify-content-center align-items-center">
                                     {{ topico.user.username|first|capfirst }} 
@@ -65,7 +67,7 @@
                             </div>
                         </div>
 
-                        <div class="topico-footer mt-2 pb-3 d-flex justify-content-end">
+                        <div class="topico-footer mt-2 px-2 pb-3 d-flex justify-content-end">
                             <div class="text-muted me-auto">
                                 <span>Respostas: {{topico.resposta_set.count}}</span>
                             </div>
@@ -103,7 +105,7 @@
                         {% for resposta in respostas %}
                         <div id="post{{resposta.pk}}" class="resposta-container">
                             
-                            <div class="resposta-header d-flex">
+                            <div class="resposta-header px-2 d-flex">
                                 <span class="ms-auto">
                                     <a class="text-decoration-none" href="#post{%firstof resposta.parent.pk resposta.topico.pk%}"
                                             onclick="targetOn(this)">
@@ -117,7 +119,7 @@
                                 </span>
                             </div>
 
-                            <div class="resposta-body mt-1">
+                            <div class="resposta-body px-2 mt-1">
                                 <div class="d-flex mb-2">
                                     <div class="fu-user d-flex justify-content-center align-items-center">
                                         {{ resposta.user.username|first|capfirst }} 
@@ -130,7 +132,7 @@
                                 </div>
                             </div>
 
-                            <div class="resposta-footer d-flex justify-content-end">
+                            <div class="resposta-footer px-2 d-flex justify-content-end">
                                 {% if user.pk == resposta.user.pk %}
                                 <button class="btn-icon-secondary border-end border-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasPost" 
                                     data-form-action="EDITAR_RESPOSTA" data-resposta-id="{{resposta.pk}}" onclick="activeForms(this)" aria-controls="offcanvasPost"
@@ -248,20 +250,26 @@
     {{ block.super }}
 
     <script src="{% static 'js/simplemde.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script type="module" src="{% static 'site_forum/js/editorController.js' %}"></script>
 
     <script>
+
         (function markdownToHTMLPosts() {
             document.querySelectorAll(".markdown").forEach(element => {
-                const makdownText = element.querySelector("pre").innerHTML;
+                const makdownText = element.querySelector("pre").innerText;
+                console.log(element.innerHTML);
                 element.innerHTML = SimpleMDE.prototype.markdown(makdownText);
             });
+
+            hljs.highlightAll();
         })();
 
         const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-sf-toggle="tooltip"]'))
         const tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl)
         })
+        
 
         function targetOn(elem) {
             const target = document.getElementById(elem.href.split("#")[1]);

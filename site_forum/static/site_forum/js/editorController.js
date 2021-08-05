@@ -12,6 +12,9 @@ if (document.querySelector("#topicoForm textarea")) {
         forceSync: true,
         lineWrapping: true,
         autofocus: true,
+        renderingConfig: {
+            codeSyntaxHighlighting: true,
+        },
     });
 }
 
@@ -24,6 +27,9 @@ if (document.querySelector("#respostaForm textarea")) {
         forceSync: true,
         lineWrapping: true,
         autofocus: true,
+        renderingConfig: {
+            codeSyntaxHighlighting: true,
+        },
     });
 }
 
@@ -70,6 +76,7 @@ function activeFormResponder(resposta_id, create=true) {
 
     if(create) {
         form.action = urlCreateRespostaCache;
+        simplemdeResposta.value("");
     } else {
         ajaxForum.getRespostaById(resposta_id).then(json => {
             form.action = urlCreateRespostaCache + `${resposta_id}/#post-${resposta_id}`;

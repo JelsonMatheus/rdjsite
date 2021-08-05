@@ -78,6 +78,13 @@ main {
     color: var(--color-primary-light);
 }
 
+.markdown {font-size: 0.9em;}
+
+.markdown pre {
+    max-height: 25rem;
+    overflow: auto;
+}
+
 .offcanvas-post {
     height: 95%;
 }
@@ -114,17 +121,14 @@ main {
         height: auto !important;
     }
 
-    .btn-collapsible::after {
-        content: none;
-    }
+    .btn-collapsible::after {content: none;}
     
-    .topico-container {
-        padding: 3rem 1rem 0rem 1rem;
-    }
+    .topico-container {padding: 3rem 1rem 0rem 1rem;}
+    
+    .resposta-container { padding: 2rem 1rem 1rem 1rem;}
 
-    .resposta-container {
-        padding: 2rem 1rem 1rem 1rem;
-    }
+    .markdown {font-size: 0.9em;}
+
     .offcanvas-post {
         width: 80%;
         height: 95%;
