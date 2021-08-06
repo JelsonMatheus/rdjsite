@@ -3,36 +3,42 @@ import { ajaxForum } from "./modules/ajaxForum.mjs";
 let simplemdeTopico = null;
 let simplemdeResposta = null;
 
+const configEditor =  {
+    spellChecker: false,
+    hideIcons: ["image"],
+    status: false,
+    forceSync: true,
+    lineWrapping: true,
+    placeholder: "User tags html ou markdown",
+    renderingConfig: {
+        codeSyntaxHighlighting: true,
+    },
+    previewRender: function(plainText) {
+        let preview = document.getElementsByClassName("editor-preview-side")[0];
+        preview.innerHTML = this.parent.markdown(plainText);
+        preview.setAttribute('id','editor-preview')
+        MathJax.typeset([preview]);
+        return preview.innerHTML;
+    }
+}
+
 if (document.querySelector("#topicoForm textarea")) {
-    simplemdeTopico = new SimpleMDE({ 
-        element: document.querySelector("#topicoForm textarea"),
-        spellChecker: false,
-        hideIcons: ["image"],
-        status: false,
-        forceSync: true,
-        lineWrapping: true,
-        autofocus: true,
-        renderingConfig: {
-            codeSyntaxHighlighting: true,
-        },
-    });
+    simplemdeTopico = new SimpleMDE(
+        Object.assign(
+            {element: document.querySelector("#topicoForm textarea")},
+            configEditor
+        )
+    );
 }
 
 if (document.querySelector("#respostaForm textarea")) {
-    simplemdeResposta = new SimpleMDE({ 
-        element: document.querySelector("#respostaForm textarea"),
-        spellChecker: false,
-        hideIcons: ["image"],
-        status: false,
-        forceSync: true,
-        lineWrapping: true,
-        autofocus: true,
-        renderingConfig: {
-            codeSyntaxHighlighting: true,
-        },
-    });
+    simplemdeResposta = new SimpleMDE(
+        Object.assign(
+            { element: document.querySelector("#respostaForm textarea")},
+            configEditor
+        )
+    );
 }
-
 
 const urlCreateRespostaCache = 
     (document.getElementById("respostaForm"))? document.getElementById("respostaForm").action : "";

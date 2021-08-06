@@ -9,6 +9,17 @@
     <link href="{% static 'site_forum/css/index.css' %}" rel="stylesheet">
 {% endblock %}
 
+{% block extrahead%} {{block.super}}
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$(', ')$']]},
+            svg: { fontCache: 'global'}
+        };
+    </script>
+
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock%}
+
 {% block content %}
 <main>
     <div class="container-fluid my-4">
@@ -143,7 +154,7 @@
         </div>
     </div> {% endif%}
 
-    {#--=============== MODAIS PARA USUÁRIOS AUTENTICADOS ==============--#}
+    {#--=============== MODAIS PARA USUÁRIOS NÃO AUTENTICADOS ==============--#}
 
     {% if not user.is_authenticated %}
     {% include "site_forum/base/login_modal.html" %}
@@ -159,18 +170,23 @@
 
         function initTextEditor() {
             const textarea = document.getElementById("textareaPost");
+            
             if(textarea) {
                 const simplemde = new SimpleMDE({ 
                     element: textarea,
                     spellChecker: false,
+                    placeholder: "User tags html ou markdown",
                     hideIcons: ["image"],
                     status: false,
                     forceSync: true,
-                    lineWrapping: true,
-                    autofocus: true,
+                    previewRender: function(plainText) {
+                        let preview = document.getElementsByClassName("editor-preview-side")[0];
+                        preview.innerHTML = this.parent.markdown(plainText);
+                        preview.setAttribute('id','editor-preview')
+                        MathJax.typeset([preview]);
+                        return preview.innerHTML;
+                    }
                 });
-
-                simplemde.value("Use tags html ou markdown.");
             }
         }
 

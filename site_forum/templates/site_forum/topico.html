@@ -8,8 +8,20 @@
     <link href="{% static 'css/simplemde.min.css' %}" rel="stylesheet">
     <link href="{% static 'site_forum/css/topico.css' %}" rel="stylesheet">
     
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/atom-one-light.min.css">
 {% endblock %}
+
+{% block extrahead%} {{block.super}}
+    <script src="{% static 'js/simplemde.min.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
+    <script>
+        MathJax = {
+            tex: { inlineMath: [['$(', ')$']]},
+            svg: { fontCache: 'global'}
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+{% endblock%}
 
 {% block content %}
 
@@ -192,7 +204,7 @@
         </div>
     </div>
     
-    <!--MODAIS-->
+    {# ============= MODAIS ============ #}
     {% if user.is_authenticated %}
     <div class="offcanvas offcanvas-bottom offcanvas-post" tabindex="-1" id="offcanvasPost" aria-labelledby="offcanvasBottomLabel">
         <div class="offcanvas-header border">
@@ -249,8 +261,6 @@
 {% block javascript %}
     {{ block.super }}
 
-    <script src="{% static 'js/simplemde.min.js' %}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script type="module" src="{% static 'site_forum/js/editorController.js' %}"></script>
 
     <script>
