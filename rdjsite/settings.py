@@ -19,6 +19,7 @@ ALLOWED_HOSTS = '*'if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
 # DEFINE O MIME TYPE PARA ARQUIVOS DE MODULOS JAVASCRIPT
 mimetypes.add_type('text/javascript', 'jms', True)
 
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 # Application definition
 
