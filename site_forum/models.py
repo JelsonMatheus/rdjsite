@@ -29,7 +29,7 @@ class Forum(TimeStampBase):
         return self.nome
 
 class Topico(TimeStampBase):
-    titulo = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=250)
     texto = models.TextField(blank=True)
     fechado = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
