@@ -69,14 +69,16 @@ WSGI_APPLICATION = 'rdjsite.wsgi.application'
 
 # Database
 if ENVIRONMENT == 'producao':
+    DATABASE_URL = config('DATABASE_URL')
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': config('DB_NAME'),
-            'USER': config('DB_USER'),
-            'PASSWORD': config('DB_PASSWORD'),
-            'HOST': config('DB_HOST'),
-            'PORT': '',
+            'NAME': DATABASE_URL.split('/')[-1],
+            'USER': DATABASE_URL.split(':')[1].split("//")[1],
+            'PASSWORD': DATABASE_URL.split(':')[2].split('@')[0],
+            'HOST': DATABASE_URL.split('@')[1].split(':')[0],
+            'PORT': DATABASE_URL.split('/')[-2].split(':')[2],
         }
     }
 else:
