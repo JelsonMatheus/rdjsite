@@ -8,11 +8,11 @@
 	</style>
 	
 	<path id="path">
-		<animate id="anim" attributeName="d" from="m0 0 h0" to="m0 0 h1100" dur="3s" begin="0s" 
+		<animate id="anim" attributeName="d" from="m0 70 h0" to="m0 70 h1100" dur="3s" begin="0s" 
 			repeatCount="indefinite" repeatDur="30s" fill="freeze"/>
 	</path>
 	<path id="path2">
-		<animate attributeName="d" from="m236 0 h0" to="m236 0 h1100" dur="3s" begin="1s" 
+		<animate attributeName="d" from="m236 70 h0" to="m236 70 h1100" dur="3s" begin="1s" 
 			repeatCount="indefinite" repeatDur="30s" fill="freeze"/>
 	</path>
     <text y="70" class="logo" fill="#6ec6ff">

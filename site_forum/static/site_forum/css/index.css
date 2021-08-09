@@ -34,6 +34,7 @@ main {
     padding: 0.5rem;
     color: var(--color-primary-light-60);
     font-weight: bold;
+    font-size: 1.1em;
     background: var(--color-primary);
     border: none;
     border-radius: 10px 10px 0px 0px;
@@ -96,7 +97,7 @@ main {
 }
 
 .topico-titulo {
-    font-size: 0.8em;
+    font-size: 1em;
     font-weight: bold;
 }
 
