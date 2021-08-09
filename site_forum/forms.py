@@ -66,7 +66,7 @@ class UserRegisterForm(forms.ModelForm):
 class TopicoCreateForm(forms.ModelForm):
     class Meta:
         model = Topico
-        fields = ['titulo', 'texto', 'categoria']
+        fields = ['titulo', 'texto']
     
     def save(self, user, forum, commit=True):
         topico = super().save(commit=False)

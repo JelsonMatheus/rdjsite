@@ -14,7 +14,7 @@ class TimeStampBase(models.Model):
         abstract = True
 
 class Forum(TimeStampBase):
-    nome = models.CharField(max_length=50)
+    nome = models.CharField(max_length=60)
     descricao = models.CharField(max_length=150)
     slug = models.SlugField(null=True, blank=True, unique=True)
 
@@ -28,19 +28,12 @@ class Forum(TimeStampBase):
     def __str__(self):
         return self.nome
 
-class Categoria(models.Model):
-    nome = models.CharField(max_length=30)
-
-    def __str__(self):
-        return self.nome
-
 class Topico(TimeStampBase):
     titulo = models.CharField(max_length=50)
     texto = models.TextField(blank=True)
     fechado = models.BooleanField(default=False)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     forum = models.ForeignKey(Forum, on_delete=models.CASCADE)
-    categoria = models.ForeignKey(Categoria, on_delete=SET_NULL, null=True, blank=True)
 
     def get_absolute_url(self):
         return reverse('forum:topico', kwargs={'slug':self.forum.slug, 'topico_id':self.pk})

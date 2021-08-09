@@ -1,11 +1,12 @@
 from pathlib import Path
 from typing import cast
-from decouple import config, Csv
+from decouple import Csv, config
 import mimetypes, os
+
+ENVIRONMENT = config('ENVIRONMENT', cast=str)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY', '.')
@@ -13,7 +14,7 @@ SECRET_KEY = config('SECRET_KEY', '.')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = '*'if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
 
 # DEFINE O MIME TYPE PARA ARQUIVOS DE MODULOS JAVASCRIPT
 mimetypes.add_type('text/javascript', 'jms', True)
@@ -67,25 +68,24 @@ WSGI_APPLICATION = 'rdjsite.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-'''DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if ENVIRONMENT == 'producao':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('DB_NAME'),
+            'USER': config('DB_USER'),
+            'PASSWORD': config('DB_PASSWORD'),
+            'HOST': config('DB_HOST'),
+            'PORT': '',
+        }
     }
-}'''
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('NAME'),
-        'USER': config('USER'),
-        'PASSWORD': config('PASSWORD'),
-        'HOST': config('HOST'),
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -124,7 +124,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-    BASE_DIR / "static",
+    os.path.join(BASE_DIR, 'static'),
 ]
 
 

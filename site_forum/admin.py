@@ -8,9 +8,6 @@ from . import models
 class ForumAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(models.Categoria)
-class CategoriaAdmin(admin.ModelAdmin):
-    pass
 
 @admin.register(models.Topico)
 class TopicoAdmin(admin.ModelAdmin):
