@@ -48,13 +48,28 @@ O RespondeJunto é um projeto criado com o intuito de colocar em praticar alguma
     pip3 install -r .requirements.txt
     ```
 
-4. Iniciar servidor Django:
+4. Realizar o migrate:
+
+    ```bash
+    python3 manage.py migrate
+    ```
+
+5. Criar um superuser com nome admin:
+
+    ```bash
+    python manage.py createsuperuser --username admin
+    Email address: example@mail.com
+    Password: ******
+    Password(again): ******
+    ```
+
+6. Iniciar servidor Django:
 
     ```bash
     python3 manage.py runserver
     ```
 
-5. O servidor será iniciado em localhost:8000:
+7. O servidor será iniciado em localhost:8000:
 
     ```bash
     System check identified no issues (0 silenced).
@@ -63,6 +78,8 @@ O RespondeJunto é um projeto criado com o intuito de colocar em praticar alguma
     Starting development server at http://127.0.0.1:8000/
     Quit the server with CONTROL-C.
     ```
+
+8. Uma mensagem de erro deve aparecer. O proximo passo é acessar a pagina localhost:8000/admin/ e cadastrar um novo fórum.
 
 ## :pushpin: Licença
 
