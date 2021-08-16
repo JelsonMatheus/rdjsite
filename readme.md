@@ -2,17 +2,17 @@
 
 Fórum de perguntas e resposta, voltado para as disciplinas ministradas no curso de computação.
 
-## Descrição
+## :clipboard: Descrição
 
-O RespondeJunto é um projeto criado com o intuito de colocar em praticar algumas habilidades de desenvolvimento web com o framework JDango, além de criar um espaço para discussões e compartilhamento de informações através de perguntas e resposta, focado nas disciplinas do curso de computação.
+O RespondeJunto é um projeto criado com o intuito de colocar em praticar algumas habilidades de desenvolvimento web com o framework Django, além de criar um espaço para discussões e compartilhamento de informações através de perguntas e resposta, focado nas disciplinas do curso de computação.
 
-## Tecnologias utilizadas
+## :hammer: Tecnologias utilizadas
 
 * Python;
 * Django;
 * HTML, CSS e Bootstrap 5;
 
-## Começando
+## :arrow_forward: Começando
 
 ### Pré-requisitos
 
@@ -64,6 +64,6 @@ O RespondeJunto é um projeto criado com o intuito de colocar em praticar alguma
     Quit the server with CONTROL-C.
     ```
 
-## Licença
+## :pushpin: Licença
 
 Este projeto está licenciado sob a licença *MIT License* - consulte o arquivo LICENSE.md para obter detalhes.
