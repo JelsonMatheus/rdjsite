@@ -14,7 +14,7 @@ SECRET_KEY = config('SECRET_KEY', '.')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = '*'if DEBUG else config('ALLOWED_HOSTS', cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv())
 
 # DEFINE O MIME TYPE PARA ARQUIVOS DE MODULOS JAVASCRIPT
 mimetypes.add_type('text/javascript', 'jms', True)
